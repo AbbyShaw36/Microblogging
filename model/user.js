@@ -17,11 +17,17 @@ extend(User.prototype, {
 	getName : function() {
 		return this.name;
 	},
-	setAge : function(age) {
-		this.age = age;
+	setPassword : function(password) {
+		this.password = password;
 	},
-	getAge : function() {
-		return this.age;
+	getPassword : function() {
+		return this.password;
+	},
+	setBirthday : function(birthday) {
+		this.birthday = birthday;
+	},
+	getBirthday : function() {
+		return this.birthday;
 	},
 	setSex : function(sex) {
 		this.sex = sex;
@@ -29,16 +35,46 @@ extend(User.prototype, {
 	getSex : function() {
 		return this.sex;
 	},
-	setPassword : function(password) {
-		this.password = password;
-	},
-	getPassword : function() {
-		return this.password;
-	},
 	setEmail : function(email) {
 		this.email = email;
 	},
 	getEmail : function() {
 		return this.email;
+	},
+	setIntroduction : function(introduction) {
+		this.introduction = introduction;
+	},
+	getIntroduction : function() {
+		return this.introduction;
+	},
+	setHpPath : function(path) {
+		this.hpPath = path;
+	},
+	getHpPath : function() {
+		return this.hpPath;
+	},
+	setHp : function(file) {
+		this.hp = file;
+	},
+	getHp : function() {
+		return this.hp;
+	},
+	setBlog : function(blog) {
+		this.blog = blog;
+	},
+	getBlog : function() {
+		return this.blog;
+	},
+	setFollowing : function(following) {
+		this.following = following;
+	},
+	getFollowing : function() {
+		return this.following;
+	},
+	setFollower : function(follower) {
+		this.follower = follower;
+	},
+	getFollower : function() {
+		return this.follower;
 	}
 });
