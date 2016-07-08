@@ -16,7 +16,7 @@ dao.create = function (user,cb) {
 			return;
 		}
 
-		cb(err,result);
+		cb(err,{userId: result.userId, id: result._id});
 	});
 },
 
@@ -40,6 +40,39 @@ dao.delete = function (sessionId,cb) {
 			return;
 		}
 
-		cb(err,result);
+		cb(err,{length: result.result.n});
 	});
 };
+
+var mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost/bearhome");
+
+var db = mongoose.connection;
+
+db.on("error",function() {
+	logger.error("Fail to connect database!");
+});
+
+db.once("open",function() {
+	logger.trace("Success to connect database!");
+});
+
+var User = require("../model/user").User;
+var user = new User();
+user.setId(1);
+
+// dao.create(user, function (err,result) {
+// 	if(err) {
+// 		return;
+// 	}
+//
+// 	console.log(result);
+// });
+
+dao.get("", function (err,result) {
+	if (err) {
+		return;
+	}
+
+	console.log(result);
+});

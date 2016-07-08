@@ -52,6 +52,45 @@ dao.getById = function(user,cb) {
 	});
 };
 
+dao.getByName = function (user,cb) {
+	var name = user.getName();
+
+	var sql = "SELECT * FROM user WHERE name = ?";
+	var inserts = [name];
+
+	sql = mysql.format(sql,inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[get user by name error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(err,result);
+	});
+};
+
+dao.getByNameAndPw = function (user,cb) {
+	var name = user.getName();
+	var password = user.getPassword();
+
+	var sql = "SELECT * FROM user WHERE name = ? AND password = ?";
+	var inserts = [name,password];
+
+	sql = mysql.format(sql,inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[get user by name and password error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(err,result);
+	});
+}
+
 dao.getList = function() {
 
 };
@@ -173,8 +212,9 @@ dao.updateFollower = function(user,cb) {
 var User = require("../model/user").User;
 var user = new User();
 user.setName("lili");
-user.setPassword("123");
+user.setPassword("12asd3");
 
-dao.create(user, function(err,result) {
-	console.log(result.insertId);
+dao.getByNameAndPw(user, function(err,result) {
+	console.log(result.length);
+	console.log(result[0]);
 });
