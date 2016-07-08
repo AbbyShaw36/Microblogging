@@ -1,0 +1,18 @@
+/* reset */
+body {
+  color: #333; }
+
+a, a:focus, a:hover {
+  color: #333;
+  text-decoration: none; }
+
+/* common */
+.btn {
+  color: #fff; }
+  .btn:hover {
+    color: #fff; }
+
+.btn1 {
+  background-color: #3f7fcf; }
+
+/*# sourceMappingURL=public.css.map */

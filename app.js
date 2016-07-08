@@ -1,15 +1,20 @@
 var http = require("http");
 var url = require("url");
 var mongoose = require("mongoose");
+var config = require("./config");
 var logger = require("./util/logger").logger;
-var router = require("./router").router;
+var router = require("./router/router").router;
+var user = require("./web/user");
 
 var handle = {
+	"/isSignedIn" : {
+		"GET" : user.isSignedIn
+	}
 };
 
 mongoose.connect("mongodb://localhost/microblogging");
 
-var db = mongoose.connection();
+var db = mongoose.connection;
 
 db.on("error", function () {
 	logger.error("Fail to connect database");

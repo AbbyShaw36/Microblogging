@@ -24,6 +24,11 @@ exports.middleware = function (req,res,pathName,handle) {
 		return;
 	}
 
+	if (pathName === "/isSignedIn") {
+		run(req,res,fun);
+		return;
+	}
+
 	var sessionId = cookie.getCookie(req,"sessionId");
 
 	if (!sessionId) {

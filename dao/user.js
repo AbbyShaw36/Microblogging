@@ -208,13 +208,3 @@ dao.updateFollower = function(user,cb) {
 		});
 	});
 };
-
-var User = require("../model/user").User;
-var user = new User();
-user.setName("lili");
-user.setPassword("12asd3");
-
-dao.getByNameAndPw(user, function(err,result) {
-	console.log(result.length);
-	console.log(result[0]);
-});

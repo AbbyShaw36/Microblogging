@@ -1,0 +1,15 @@
+$systemColor : #3f7fcf;
+$systemColor1: #ffb752;
+
+/* reset */
+body { color: #333; }
+a, a:focus, a:hover {color: #333; text-decoration: none; }
+
+/* common */
+.btn {
+  color: #fff;
+  &:hover {
+	color: #fff;
+  }
+}
+.btn1 { background-color: $systemColor; }

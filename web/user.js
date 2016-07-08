@@ -104,3 +104,21 @@ exports.signout = function (req,res,cb) {
 		cb(null);
 	});
 };
+
+exports.isSignedIn = function (req,res,cb) {
+	var sessionId = cookie.getCookie(req,"sessionId");
+
+	if (!sessionId) {
+		cb(null, {isSignedIn : false});
+		return;
+	}
+
+	service(sessionId, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		cb(null, {isSignedIn : result});
+	});
+};

@@ -1,0 +1,20 @@
+#login .formBox {
+  margin-top: 100px;
+  padding-top: 0;
+  border: 1px solid #dcdcdc; }
+#login .tabTitle {
+  border-bottom: 1px solid #dcdcdc; }
+  #login .tabTitle li {
+    font-size: 16px;
+    font-weight: bolder; }
+    #login .tabTitle li a {
+      display: block;
+      padding: 10px; }
+    #login .tabTitle li.active {
+      border-bottom: 2px solid #3f7fcf; }
+      #login .tabTitle li.active a {
+        color: #3f7fcf; }
+#login .formContent {
+  padding: 20px; }
+
+/*# sourceMappingURL=pages.css.map */

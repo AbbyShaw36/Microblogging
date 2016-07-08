@@ -1,0 +1,64 @@
+<div ng-controller="LoginCtrl" id="login" class="panel container">
+	<div class="formBox panel-body col-md-6 col-md-offset-3" ng-controller="TabCtrl">
+		<div>
+			<ul class="tabTitle row list-inline">
+				<li ng-class="{active: isSet(1)}" class="col-lg-6 text-center"><a href ng-click="setTab(1)">快速登录</a></li>
+				<li ng-class="{active: isSet(2)}" class="col-lg-6 text-center"><a href ng-click="setTab(2)">快速注册</a></li>
+			</ul>
+		</div>
+		<div class="formContent">
+			<div ng-show="isSet(1)">
+				<div class="form-group row">
+					<label class="col-md-12 center-block">
+						<span class="col-md-4 text-right">用户名：</span>
+						<input type="text">
+					</label>
+				</div>
+				<div class="form-group row">
+					<label class="col-md-12 center-block">
+						<span class="col-md-4 text-right">密码：</span>
+						<input type="password">
+					</label>
+				</div>
+				<div class="form-group row">
+					<button role="button" class="btn btn1 col-md-6 col-md-offset-3">登录</button>
+				</div>
+			</div>
+			<div ng-show="isSet(2)" ng-controller="SignupCtrl" name="signup">
+				<form role="form" name="signupForm" novalidate>
+					<div class="form-group row">
+						<label class="col-md-12 center-block">
+							<span class="col-md-4 text-right">用户名：</span>
+							<input type="text" name="name" ng-model="name" required>
+							<span class="error" ng-show="signupForm.name.$dirty && signupForm.name.$invalid">
+								<span ng-show="signupForm.name.$error.required">用户名不能为空</span>
+							</span>
+						</label>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-12 center-block">
+							<span class="col-md-4 text-right">密码：</span>
+							<input type="password" name="password" ng-model="password" ng-minlength="6" ng-maxlength="12" required placeholder="密码长度为6-12位">
+							<span class="error" ng-show="signupForm.password.$dirty && signupForm.password.$invalid">
+								<span ng-show="signupForm.password.$error.required">密码不能为空</span>
+								<span ng-show="signupForm.passowrd.$invalid">密码长度不能小于6位</span>
+							</span>
+						</label>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-12 center-block">
+							<span class="col-md-4 text-right">确认密码：</span>
+							<input type="password" name="pwAgain" ng-model="pwAgain" required>
+							<span class="error" ng-show="signupForm.pwAgain.$dirty && signupForm.pwAgain.$invalid">
+								<span ng-show="signupForm.pwAgain.$error.required">确认密码不能为空</span>
+							</span>
+						</label>
+					</div>
+					<div class="form-group row">
+						<button role="button" class="btn btn1 col-md-6 col-md-offset-3" ng-click="signup()">注册</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

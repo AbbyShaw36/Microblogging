@@ -1,0 +1,29 @@
+$systemColor : #3f7fcf;
+
+#login {
+  .formBox {
+	margin-top: 100px;
+	padding-top: 0;
+	border: 1px solid #dcdcdc;
+  }
+  .tabTitle {
+	border-bottom: 1px solid #dcdcdc;
+	li {
+	  font-size: 16px;
+	  font-weight: bolder;
+	  a {
+		display: block;
+		padding: 10px;
+	  }
+	  &.active {
+		border-bottom: 2px solid $systemColor;
+		a {
+		  color: $systemColor;
+		}
+	  }
+	}
+  }
+  .formContent {
+	padding: 20px;
+  }
+}

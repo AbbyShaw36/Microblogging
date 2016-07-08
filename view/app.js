@@ -1,14 +1,26 @@
-var routerApp = angular.module("routerApp",['ui.router']);
+var myApp = angular.module('myApp', ['ui.router', "IsSignedInModule","LoginModule","TabModule","SignupModule"]);
 
-routerApp.config(function ($stateProvider, $urlRouterProvider) {
+myApp.run(function($rootScope, $state, $stateParams) {
+	$rootScope.$state = $state;
+	$rootScope.$stateParams = $stateParams;
+});
+
+myApp.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/index");
-
 	$stateProvider
-		.state("index", {
-			url: "/index",
+		.state('index', {
+			url: '/index',
+			views: {
+				'': {
+					templateUrl: 'tpls/index.html'
+				}
+			}
+		})
+		.state("login", {
+			url: "/login",
 			views: {
 				"": {
-					remplateUrl: "tpls/index.html"
+					templateUrl: "tpls/login.html"
 				}
 			}
 		})
