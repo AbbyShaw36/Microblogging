@@ -93,3 +93,19 @@ service.isSignedIn = function (sessionId,cb) {
 		cb(null,true);
 	});
 }
+
+service.isExists = function(user,cb) {
+	dao.getByName(user, function(err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		if (result.length === 0) {
+			cb(null,false);
+			return;
+		}
+
+		cb(null,true);
+	})
+}

@@ -9,6 +9,9 @@ var user = require("./web/user");
 var handle = {
 	"/isSignedIn" : {
 		"GET" : user.isSignedIn
+	},
+	"/isUserExists" : {
+		"GET" : user.isExists
 	}
 };
 

@@ -24,7 +24,7 @@ exports.middleware = function (req,res,pathName,handle) {
 		return;
 	}
 
-	if (pathName === "/isSignedIn") {
+	if (pathName === "/isSignedIn" || pathName === "/isUserExists") {
 		run(req,res,fun);
 		return;
 	}

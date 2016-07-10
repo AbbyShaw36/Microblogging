@@ -113,7 +113,7 @@ exports.isSignedIn = function (req,res,cb) {
 		return;
 	}
 
-	service(sessionId, function (err,result) {
+	service.isSignedIn(sessionId, function (err,result) {
 		if (err) {
 			cb(err);
 			return;
@@ -122,3 +122,32 @@ exports.isSignedIn = function (req,res,cb) {
 		cb(null, {isSignedIn : result});
 	});
 };
+
+exports.isExists = function(req,res,cb) {
+	getData.byUrl(req, function(err,data) {
+		if (err) {
+			cb(err);
+			return;
+		}
+		
+		var name = data.name;
+
+		if (!name) {
+			logger.warn("[isExists error] - user name not provided");
+			cb(error.usernameNotProvided);
+			return;
+		}
+
+		var user = new User();
+		user.setName(name);
+
+		service.isExists(user, function(err,result) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null,{isExists: result});
+		});
+	});
+}
