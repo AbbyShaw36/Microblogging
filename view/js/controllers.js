@@ -6,7 +6,7 @@ IsSignedInModule.controller("IsSignedInCtrl", function ($scope,$http) {
 	$http.get("isSignedIn").then(
 		function (response) {
 			if (!response.data.isSignedIn) {
-				location.href = "#/login"
+				location.href = "#/login";
 			}
 		},
 		function (response) {
@@ -23,7 +23,7 @@ LoginModule.controller("LoginCtrl", function ($scope,$http) {
 	$http.get("isSignedIn").then(
 		function (response) {
 			if (response.data.isSignedIn) {
-				location.href = "#/index"
+				location.href = "#/index";
 			}
 		},
 		function (response) {
@@ -49,12 +49,50 @@ TabModule.controller("TabCtrl", function ($scope) {
 });
 
 /**
+ * 登录模块
+ */
+var SigninModule = angular.module("SigninModule",[]);
+SigninModule.controller("SigninCtrl",function($scope,$http) {
+	$scope.signin = function () {
+		if ($scope.signinForm.$valid) {
+			var name = $.trim($scope.name);
+			var password = $.trim($scope.password);
+			var data = "name=" + name + "&password=" + password;
+
+			$http.post("signin",data).then(
+				function (response) {
+					location.href = "#/index";
+				},
+				function (response) {
+					if (response.status === 404) {
+						alert("登录失败：用户名或密码错误！");
+					}
+				}
+			);
+		}
+	}
+});
+
+/**
  * 注册模块
  */
 var SignupModule = angular.module("SignupModule",[]);
-SignupModule.controller("SignupCtrl", function ($scope) {
+SignupModule.controller("SignupCtrl", function ($scope,$http) {
 	$scope.signup = function () {
-		console.log($scope.name);
+		if ($scope.signupForm.$valid) {
+			var name = $.trim($scope.name);
+			var password = $.trim($scope.password);
+			var data = "name=" + name + "&password=" + password;
+
+			$http.post("signup",data).then(
+				function (response) {
+					alert("注册成功！");
+				},
+				function (response) {
+					alert("注册失败！");
+				}
+			)
+		}
 	}
 });
 // 用户名是否已存在
@@ -96,4 +134,18 @@ SignupModule.directive("equal", function () {
 			});
 		}
 	};
+});
+
+var HeaderModule = angular.module("HeaderModule",[]);
+HeaderModule.controller("HeaderCtrl",function ($scope,$http) {
+	$scope.signout = function () {
+		$http.delete("signout").then(
+			function (response) {
+				location.href = "#/login";
+			},
+			function (response) {
+				alert("退出失败！");
+			}
+		)
+	}
 });

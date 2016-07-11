@@ -12,6 +12,18 @@ var handle = {
 	},
 	"/isUserExists" : {
 		"GET" : user.isExists
+	},
+	"/signup" : {
+		"POST" : user.signup
+	},
+	"/signin" : {
+		"POST" : user.signin
+	},
+	"/signout" : {
+		"DELETE" : user.signout
+	},
+	"/getOwner" : {
+		"GET" : user.getOwner
 	}
 };
 

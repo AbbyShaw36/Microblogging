@@ -36,7 +36,7 @@ exports.setCookie = function (res,cookie) {
 	}
 
 	logger.trace("[set cookie] - " + text);
-	res.setHandlers("Set-Cookie", text);
+	res.setHeader("Set-Cookie", text);
 };
 
 exports.getCookies = function (req) {

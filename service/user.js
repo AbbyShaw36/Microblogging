@@ -2,6 +2,7 @@ var dao = require("../dao/user").dao;
 var sessionDao = require("../dao/session").dao;
 var logger = require("../util/logger").logger;
 var error = require("../util/error");
+var User = require("../model/user").User;
 
 var service = {};
 
@@ -46,7 +47,7 @@ service.signin = function (user,cb) {
 			return;
 		}
 
-		user.setId(result[0].userId);
+		user.setId(result[0].id);
 
 		sessionDao.create(user, function (err,result) {
 			if (err) {
@@ -108,4 +109,37 @@ service.isExists = function(user,cb) {
 
 		cb(null,true);
 	})
-}
+};
+
+service.getOwner = function (sessionId,cb) {
+	sessionDao.get(sessionId, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		if (result.length === 0) {
+			logger.warn("[get user error] - " + error.unauthorized.discription);
+			cb(error.unauthorized);
+		}
+
+		var userId = result[0].userId;
+		var user = new User();
+		user.setId(userId);
+
+		dao.getById(user, function (err,result) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			if (result.length === 0) {
+				logger.warn("[get user error] - " + error.userNotExists.discription);
+				cb(error.userNotExists);
+				return;
+			}
+
+			cb(null,result[0]);
+		});
+	});
+};

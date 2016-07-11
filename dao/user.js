@@ -36,7 +36,7 @@ dao.create = function(user,cb) {
 dao.getById = function(user,cb) {
 	var id = user.getId();
 
-	var sql = "SELECT * FROM user WHERE userId = ?";
+	var sql = "SELECT * FROM user WHERE id = ?";
 	var inserts = [id];
 
 	sql = mysql.format(sql,inserts);
@@ -106,7 +106,7 @@ dao.update = function(user,cb) {
 	var hpPath = user.getHpPath();
 	var hp = user.getHp();
 
-	var sql = "UPDATE user SET name = ?, password = ?, birthday = ?, sex = ?, email = ?, introduction = ?, hpPath = ?, hp = ? WHERE userId = ?";
+	var sql = "UPDATE user SET name = ?, password = ?, birthday = ?, sex = ?, email = ?, introduction = ?, hpPath = ?, hp = ? WHERE id = ?";
 	var inserts = [name,password,birthday,sex,email,introduction,hpPath,hp,id];
 
 	sql = mysql.format(sql,inserts);
@@ -136,7 +136,7 @@ dao.updateBlog = function(user,cb) {
 		var blog = user.getBlog();
 		var blogs = result[0].blogs + blog;
 
-		var sql = "UPDATE user SET blogs = ? WHERE userId = ?";
+		var sql = "UPDATE user SET blogs = ? WHERE id = ?";
 		var inserts = [blogs,id];
 
 		sql = mysql.format(sql,inserts);
@@ -164,7 +164,7 @@ dao.updateFollowing = function(user,cb) {
 		var following = user.getFollowing();
 		var followings = result[0].followings + following;
 
-		var sql = "UPDATE user SET followings = ? WHERE userId = ?";
+		var sql = "UPDATE user SET followings = ? WHERE id = ?";
 		var inserts = [followings,id];
 
 		sql = mysql.format(sql,inserts);
@@ -192,7 +192,7 @@ dao.updateFollower = function(user,cb) {
 		var follower = user.getFollower();
 		var followers = result[0].followers + follower;
 
-		var sql = "UPDATE user SET followers = ? WHERE userId = ?";
+		var sql = "UPDATE user SET followers = ? WHERE id = ?";
 		var inserts = [followers,id];
 
 		sql = mysql.format(sql,inserts);

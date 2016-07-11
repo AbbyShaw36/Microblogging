@@ -31,7 +31,7 @@ exports.signup = function (req,res,cb) {
 
 		var user = new User();
 		user.setName(name);
-		user.setPassword(password);
+		user.setPassword(sha1(password));
 
 		service.signup(user,cb);
 	});
@@ -97,8 +97,8 @@ exports.signout = function (req,res,cb) {
 		cookieObj.setKey("sessionId");
 		cookieObj.setValue("");
 		cookieObj.setPath("/");
-		cookieObj.httpOnly(true);
-		cookieObj.maxAge("0");
+		cookieObj.setHttpOnly(true);
+		cookieObj.setMaxAge("0");
 
 		cookie.setCookie(res,cookieObj);
 		cb(null);
@@ -150,4 +150,23 @@ exports.isExists = function(req,res,cb) {
 			cb(null,{isExists: result});
 		});
 	});
-}
+};
+
+exports.getOwner = function (req,res,cb) {
+	var sessionId = cookie.getCookie(req,"sessionId");
+
+	if (!sessionId) {
+		logger.warn("[get user error] - " + error.unauthorized.discription);
+		cb(error.unauthorized);
+		return;
+	}
+	
+	service.getOwner(sessionId, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		cb(null, {owner: result});
+	});
+};

@@ -16,5 +16,14 @@
         color: #3f7fcf; }
 #login .formContent {
   padding: 20px; }
+#login .form-group {
+  line-height: 30px; }
+
+#updateInfo .title {
+  margin-bottom: 20px;
+  padding-left: 10px;
+  border-left: 4px solid #000;
+  font-weight: bolder;
+  font-size: 20px; }
 
 /*# sourceMappingURL=pages.css.map */

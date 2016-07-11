@@ -1,3 +1,9 @@
 <div ng-controller="IsSignedInCtrl">
-
+	<div ui-view="header" id="header">加载中...</div>
+	<div id="main">
+		<div class="container">
+			<div ui-view="aside" class="col-md-3" id="aside">加载中...</div>
+			<div ui-view="content" class="col-md-8">加载中...</div>
+		</div>
+	</div>
 </div>

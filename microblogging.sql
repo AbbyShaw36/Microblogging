@@ -1,6 +1,6 @@
 DROP TABLE `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-	`userId` int(11) NOT NULL AUTO_INCREMENT,
+	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`name` varchar(255) NOT NULL,
 	`password` varchar(40) NOT NULL,
 	`birthday` bigint(20) DEFAULT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`blogs` int(11) DEFAULT 0,
 	`followings` int(11) DEFAULT 0,
 	`followers` int(11) DEFAULT 0,
-	PRIMARY KEY (`userId`),
+	PRIMARY KEY (`id`),
 	UNIQUE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
@@ -24,35 +24,35 @@ CREATE TABLE IF NOT EXISTS `follow` (
 
 DROP TABLE `blogs`;
 CREATE TABLE IF NOT EXISTS `blogs` (
-	`blogId` int(11) NOT NULL AUTO_INCREMENT,
-	`blogContent` varchar(255) NOT NULL,
-	`blogPublishTime` bigint(20) NOT NULL,
-	`blogPublisher` int(11) NOT NULL,
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`content` varchar(255) NOT NULL,
+	`publishTime` bigint(20) NOT NULL,
+	`publisher` int(11) NOT NULL,
 	`comments` int(11) DEFAULT 0,
-	PRIMARY KEY (`blogId`)
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 DROP TABLE `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
-	`commentId` int(11) NOT NULL AUTO_INCREMENT,
-	`commentContent` varchar(255) NOT NULL,
-	`commentPublishTime` bigint(20) NOT NULL,
-	`commentPublisher` int(11) NOT NULL,
-	`commentReceiver` int(11) NOT NULL,
-	`commentReceived` ENUM('0', '1') DEFAULT '0',
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`content` varchar(255) NOT NULL,
+	`publishTime` bigint(20) NOT NULL,
+	`publisher` int(11) NOT NULL,
+	`receiver` int(11) NOT NULL,
+	`ceceived` ENUM('0', '1') DEFAULT '0',
 	`messages` int(11) DEFAULT 0,
 	`blogId` int(11) NOT NULL,
-	PRIMARY KEY (`commentId`)
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 DROP TABLE `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
-	`messageId` int(11) NOT NULL AUTO_INCREMENT,
-	`messageContent` varchar(255) NOT NULL,
-	`messagePublishTime` bigint(20) NOT NULL,
-	`messagePublisher` int(11) NOT NULL,
-	`messageReceiver` int(11) NOT NULL,
-	`messageReceived` ENUM('0','1') DEFAULT '0',
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`content` varchar(255) NOT NULL,
+	`publishTime` bigint(20) NOT NULL,
+	`publisher` int(11) NOT NULL,
+	`receiver` int(11) NOT NULL,
+	`received` ENUM('0','1') DEFAULT '0',
 	`commentId` int(11) NOT NULL,
-	PRIMARY KEY (`messageId`)
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;

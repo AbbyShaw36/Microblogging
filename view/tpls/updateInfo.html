@@ -1,0 +1,57 @@
+<div ui-view="header" id="header"></div>
+<div id="main">
+	<div id="updateInfo" class="container">
+		<div class="col-md-12">
+			<div class="col-md-8">
+				<h3 class="title">基本信息</h3>
+				<form role="form" name="updateInfoForm">
+					<div class="form-group row">
+						<label class="col-md-6">
+							<span class="col-md-4 text-right">用户名：</span>
+							<input type="text" value="{{user.name}}" class="col-md-8">
+						</label>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-6">
+							<span class="col-md-4 text-right">性别：</span>
+							<select name="sex" class="col-md-3">
+								<option value=""></option>
+								<option value="0">男</option>
+								<option value="1">女</option>
+							</select>
+						</label>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-6">
+							<span class="col-md-4 text-right">生日：</span>
+							<input type="date" value="{{user.birthday}}" class="col-md-8">
+						</label>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-6">
+							<span class="col-md-4 text-right">邮箱：</span>
+							<input type="email" value="{{user.email}}" class="col-md-8">
+						</label>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-6">
+							<span class="col-md-4 text-right">个性介绍：</span>
+							<textarea name="" id="" cols="30" rows="5" class="col-md-8">{{user.introduction}}</textarea>
+						</label>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-4">
+				<h3 class="title">头像设置</h3>
+				<div class="headPortrait">
+					<img src="{{(user.hpPath + user.hp) || 'headPortrait/default.png'}}" alt="头像">
+				</div>
+				<input type="file">
+			</div>
+		</div>
+		<div class="text-center">
+			<button type="button">保存</button>
+			<button type="button">返回</button>
+		</div>
+	</div>
+</div>
