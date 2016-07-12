@@ -139,7 +139,26 @@ service.getOwner = function (sessionId,cb) {
 				return;
 			}
 
-			cb(null,result[0]);
+			var data = result[0];
+			delete data.password;
+			cb(null,data);
 		});
 	});
 };
+
+service.updateInfo = function (user,cb) {
+	dao.updateInfo(user, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		if (result.affectedRows === 0) {
+			logger.warn("[update user info error] - " + error.userNotExists.discription);
+			cb(error.userNotExists);
+			return;
+		}
+
+		cb(null, result);
+	});
+}

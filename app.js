@@ -24,6 +24,9 @@ var handle = {
 	},
 	"/getOwner" : {
 		"GET" : user.getOwner
+	},
+	"/updateInfo" : {
+		"PUT" : user.updateInfo
 	}
 };
 

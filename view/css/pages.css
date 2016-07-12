@@ -25,5 +25,21 @@
   border-left: 4px solid #000;
   font-weight: bolder;
   font-size: 20px; }
+#updateInfo .cropArea {
+  width: 200px;
+  height: 200px;
+  background: #E4E4E4;
+  overflow: hidden; }
+#updateInfo .imgBox {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  padding: 0;
+  border: 1px solid #dcdcdc; }
+  #updateInfo .imgBox img {
+    width: 100%;
+    height: 100%; }
+  #updateInfo .imgBox .oldImg {
+    position: absolute; }
 
 /*# sourceMappingURL=pages.css.map */

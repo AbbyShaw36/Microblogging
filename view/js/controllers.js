@@ -145,7 +145,93 @@ HeaderModule.controller("HeaderCtrl",function ($scope,$http) {
 			},
 			function (response) {
 				alert("退出失败！");
+				console.log(response);
 			}
 		)
 	}
+});
+
+var UpdateInfoModule = angular.module("UpdateInfoModule",[]);
+UpdateInfoModule.controller("UpdateInfoCtrl", function ($scope,$rootScope,$http) {
+	$scope.maxDate = new Date().toISOString().split('T')[0];
+
+	$http.get("getOwner").then(
+		function(response) {
+			$scope.user = response.data.owner;
+			$scope.user.sex = $rootScope.sexs[$scope.user.sex];
+			$scope.user.birthday = new Date($scope.user.birthday);
+			$scope.user.headPortrait = ($scope.user.hpPath + $scope.user.hp) || "headPortrait/default.png";
+		}
+	);
+
+	$scope.save = function () {
+		if ($scope.updateInfoForm.$valid) {
+			console.log($scope.user);
+			return;
+			var id = $scope.user.id;
+			var name = $scope.user.name;
+			var sex = $scope.user.sex.value;
+			var birthday = new Date($scope.user.birthday).getTime();
+			var email = $scope.user.email;
+			var introduction = $scope.user.introduction;
+			var data = "id=" + id + "&name=" + name + "&sex=" + sex + "&birthday=" + birthday + "&email=" + email + "&introduction=" + introduction;
+
+			$http.put("updateInfo",data).then(
+				function (response) {
+					alert("保存成功！");
+				},
+				function (response) {
+					alert("保存失败！");
+					console.log(response);
+				}
+			);
+		}
+	};
+});
+UpdateInfoModule.controller("UploadHpCtrl", function ($scope) {
+	$scope.changeImg = false;
+	$scope.myImage='';
+	$scope.myCroppedImage='';
+
+	var handleFileSelect=function(evt) {
+		var file=evt.currentTarget.files[0];
+
+		if (!file.type.match("image")) {
+			alert("文件只限图片格式！");
+			return;
+		}
+
+		var reader = new FileReader();
+
+		reader.onload = function (evt) {
+			$scope.$apply(function($scope){
+				$scope.myImage=evt.target.result;
+			});
+		};
+
+		reader.readAsDataURL(file);
+
+		$scope.user.headPortrait = $scope.myCroppedImage;
+		$scope.changeImg = true;
+	};
+	angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+});
+UpdateInfoModule.directive("fileType", function () {
+	return {
+		require: 'ngModel',
+		scope: {
+			fileType: "="
+		},
+		link: function(scope, elem, attrs, ctrl) {
+			elem.on("change",function () {
+				ctrl.$validators.fileType = function(modelValue, viewValue) {
+					return elem[0].files[0].type.match(scope.fileType);
+				};
+
+				scope.$watch('fileType', function(newVal, oldVal) {
+					ctrl.$validate();
+				});
+			});
+		}
+	};
 });

@@ -170,3 +170,40 @@ exports.getOwner = function (req,res,cb) {
 		cb(null, {owner: result});
 	});
 };
+
+exports.updateInfo = function (req,res,cb) {
+	getData.byBody(req, function (err,data) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		var id = data.id;
+		var name = data.name;
+		var sex = data.sex;
+		var birthday = data.birthday;
+		var email = data.email;
+		var introduction = data.introduction;
+
+		if (!id) {
+			logger.warn("[update user info error] - " + error.userIdNotProvided.discription);
+			cb(error.userIdNotProvided);
+			return;
+		}
+
+		if (!name) {
+			logger.warn("[update user info error] - " + error.usernameNotProvided.discription);
+			cb(error.usernameNotProvided);
+		}
+
+		var user = new User();
+		user.setId(id);
+		user.setName(name);
+		user.setSex(sex);
+		user.setBirthday(birthday);
+		user.setEmail(email);
+		user.setIntroduction(introduction);
+
+		service.updateInfo(user,cb);
+	});
+}

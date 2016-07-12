@@ -208,3 +208,26 @@ dao.updateFollower = function(user,cb) {
 		});
 	});
 };
+
+dao.updateInfo = function (user,cb) {
+	var id = user.getId();
+	var name = user.getName();
+	var sex = user.getSex();
+	var birthday = user.getBirthday();
+	var email = user.getEmail();
+	var introduction = user.introduction;
+
+	var sql = "UPDATE user SET name=?, sex=?, birthday=?, email=?, introduction=? WHERE id=?";
+	var inserts = [name,sex,birthday,email,introduction,id];
+	sql = mysql.format(sql,inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[updateInfo error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(null,result);
+	});
+};
