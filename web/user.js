@@ -207,3 +207,40 @@ exports.updateInfo = function (req,res,cb) {
 		service.updateInfo(user,cb);
 	});
 }
+
+exports.uploadHp = function (req,res,cb) {
+	getData.byBody(req, function (err,data) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		var hpData = data.hpData;
+		var hpPath = data.hpPath;
+		
+		if (!hpData) {
+			logger.warn("[upload head portrait error] - " + error.hpDataNotProvided.discription);
+			cb(error.hpDataNotProvided);
+			return;
+		}
+		
+		if (!hpPath) {
+			logger.warn("[upload head portrait error] - " + error.hpPathNotProvided.discription);
+			cb(error.hpPathNotProvided);
+			return;
+		}
+		
+		var user = new User();
+		user.setHpPath(hpPath);
+		user.setHpData(hpData);
+
+		service.saveHp(user, function (err,result) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null,{hp: result});
+		});
+	});
+};

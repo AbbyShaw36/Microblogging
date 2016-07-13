@@ -41,5 +41,7 @@
     height: 100%; }
   #updateInfo .imgBox .oldImg {
     position: absolute; }
+#updateInfo .btnBox {
+  margin-top: 20px; }
 
 /*# sourceMappingURL=pages.css.map */

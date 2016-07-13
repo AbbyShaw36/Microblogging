@@ -1,0 +1,9 @@
+<div id="createBlog">
+	<form name="createBlogForm" role="form">
+		<div class="row">
+			<textarea cols="30" rows="10" class="col-md-8" ng-model="blogContent" name="blogContent" required></textarea>
+			<button type="button">发布</button>
+		</div>
+		<div class="error" ng-show="createBlogForm.blogContent.$dirty && createBlogForm.blogContent.$invalid">发布内容不能为空</div>
+	</form>
+</div>

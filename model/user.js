@@ -59,6 +59,12 @@ extend(User.prototype, {
 	getHp : function() {
 		return this.hp;
 	},
+	setHpData : function (data) {
+		this.hpData = data;
+	},
+	getHpData : function () {
+		return this.hpData;
+	},
 	setBlog : function(blog) {
 		this.blog = blog;
 	},

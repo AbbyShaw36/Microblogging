@@ -65,11 +65,10 @@
 					</div>
 					<form name="hpForm" novalidate role="form" id="hpForm">
 						<div>
-							<input type="file" file-type="image" id="fileInput" name="hpFile" ng-model="hpFile"/>
-							<span class="error" ng-show="hpForm.hpFile.$dirty && hpForm.hpFile.$invalid">文件只限图片！</span>
+							<input type="file" id="fileInput" name="hpFile" ng-model="hpFile"/>
 						</div>
-						<div>
-							<button type="button">上传</button>
+						<div class="btnBox">
+							<button type="button" ng-click="upload()">上传</button>
 						</div>
 					</form>
 				</div>

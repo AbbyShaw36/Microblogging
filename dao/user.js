@@ -10,15 +10,9 @@ exports.dao = dao;
 dao.create = function(user,cb) {
 	var name = user.getName();
 	var password = user.getPassword();
-	var birthday = user.getBirthday();
-	var sex = user.getSex();
-	var email = user.getEmail();
-	var introduction = user.getIntroduction();
-	var hpPath = user.getHpPath();
-	var hp = user.getHp();
 
-	var sql = "INSERT INTO user (name,password,birthday,sex,email,introduction,hpPath,hp) VALUES (?,?,?,?,?,?,?,?)";
-	var inserts = [name,password,birthday,sex,email,introduction,hpPath,hp];
+	var sql = "INSERT INTO user (name,password) VALUES (?,?)";
+	var inserts = [name,password];
 
 	sql = mysql.format(sql,inserts);
 	

@@ -159,8 +159,8 @@ UpdateInfoModule.controller("UpdateInfoCtrl", function ($scope,$rootScope,$http)
 		function(response) {
 			$scope.user = response.data.owner;
 			$scope.user.sex = $rootScope.sexs[$scope.user.sex];
-			$scope.user.birthday = new Date($scope.user.birthday);
-			$scope.user.headPortrait = ($scope.user.hpPath + $scope.user.hp) || "headPortrait/default.png";
+			$scope.user.birthday = $scope.user.birthday ? new Date($scope.user.birthday) : "";
+			$scope.user.headPortrait = $scope.user.hpPath + ($scope.user.hp || "default.png");
 		}
 	);
 
@@ -188,7 +188,7 @@ UpdateInfoModule.controller("UpdateInfoCtrl", function ($scope,$rootScope,$http)
 		}
 	};
 });
-UpdateInfoModule.controller("UploadHpCtrl", function ($scope) {
+UpdateInfoModule.controller("UploadHpCtrl", function ($scope,$http) {
 	$scope.changeImg = false;
 	$scope.myImage='';
 	$scope.myCroppedImage='';
@@ -197,7 +197,7 @@ UpdateInfoModule.controller("UploadHpCtrl", function ($scope) {
 		var file=evt.currentTarget.files[0];
 
 		if (!file.type.match("image")) {
-			alert("文件只限图片格式！");
+			alert("文件只限图片!");
 			return;
 		}
 
@@ -213,25 +213,21 @@ UpdateInfoModule.controller("UploadHpCtrl", function ($scope) {
 
 		$scope.user.headPortrait = $scope.myCroppedImage;
 		$scope.changeImg = true;
-	};
-	angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
-});
-UpdateInfoModule.directive("fileType", function () {
-	return {
-		require: 'ngModel',
-		scope: {
-			fileType: "="
-		},
-		link: function(scope, elem, attrs, ctrl) {
-			elem.on("change",function () {
-				ctrl.$validators.fileType = function(modelValue, viewValue) {
-					return elem[0].files[0].type.match(scope.fileType);
-				};
 
-				scope.$watch('fileType', function(newVal, oldVal) {
-					ctrl.$validate();
-				});
-			});
-		}
 	};
+
+	angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+
+	$scope.upload = function () {
+		var data = "hpData=" + encodeURIComponent($scope.myCroppedImage) + "&hpPath=" + $scope.user.hpPath;
+
+		$http.post("uploadHp",data).then(
+			function (response) {
+				console.log(response);
+			},
+			function (response) {
+				console.log(response);
+			}
+		)
+	}
 });

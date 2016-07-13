@@ -27,6 +27,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 							}
 						)
 					}
+				},
+				"createBlog@index" : {
+					templateUrl: "tpls/createBlog.html"
 				}
 			}
 		})

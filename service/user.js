@@ -1,3 +1,4 @@
+var fs = require("fs");
 var dao = require("../dao/user").dao;
 var sessionDao = require("../dao/session").dao;
 var logger = require("../util/logger").logger;
@@ -160,5 +161,34 @@ service.updateInfo = function (user,cb) {
 		}
 
 		cb(null, result);
+	});
+}
+
+service.saveHp = function (user,cb) {
+	var hpData = decodeURIComponent(user.getHpData());
+	var hpPath = "./view/" + user.getHpPath();
+	var type = hpData.slice(0,hpData.indexOf(";")).split("/")[1];
+	var data = new Buffer(hpData.replace(/^data:image\/\w+;base64,/, ""),"base64");
+	var hp = new Date().getTime().toString() + Math.floor(Math.random() * 100).toString() + "." + type;
+	var path = hpPath + hp;
+
+	fs.exists(hpPath,function(exists) {
+		if (!exists) {
+			logger.warn("[save head portrait error] - " + error.hpPathNotExists.discription);
+			console.log(hpPath);
+			cb(error.hpPathNotExists);
+			return;
+		}
+
+		fs.writeFile(path,data,function(err) {
+			if (err) {
+				logger.error("[save head portrait error] - " + err);
+				cb(error.internalServerErr);
+				return;
+			}
+
+			logger.trace("[save head portrait] - success");
+			cb(null,hp);
+		});
 	});
 }

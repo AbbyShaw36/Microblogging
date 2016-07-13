@@ -27,6 +27,9 @@ var handle = {
 	},
 	"/updateInfo" : {
 		"PUT" : user.updateInfo
+	},
+	"/uploadHp" : {
+		"POST" : user.uploadHp
 	}
 };
 

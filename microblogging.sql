@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`sex` int(1) DEFAULT NULL,
 	`email` varchar(255) DEFAULT NULL,
 	`introduction` varchar(255) DEFAULT NULL,
-	`hpPath` varchar(255) DEFAULT NULL,
+	`hpPath` varchar(255) DEFAULT 'headPortrait/',
 	`hp` varchar(255) DEFAULT NULL,
 	`blogs` int(11) DEFAULT 0,
 	`followings` int(11) DEFAULT 0,
