@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`name` varchar(255) NOT NULL,
 	`password` varchar(40) NOT NULL,
 	`birthday` bigint(20) DEFAULT NULL,
-	`sex` int(1) DEFAULT NULL,
+	`sex` int(1) DEFAULT 0,
 	`email` varchar(255) DEFAULT NULL,
 	`introduction` varchar(255) DEFAULT NULL,
 	`hpPath` varchar(255) DEFAULT 'headPortrait/',

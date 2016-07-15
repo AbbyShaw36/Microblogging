@@ -5,6 +5,7 @@ var config = require("./config");
 var logger = require("./util/logger").logger;
 var router = require("./router/router").router;
 var user = require("./web/user");
+var blog = require("./web/blog");
 
 var handle = {
 	"/isSignedIn" : {
@@ -26,10 +27,16 @@ var handle = {
 		"GET" : user.getOwner
 	},
 	"/updateInfo" : {
-		"PUT" : user.updateInfo
+		"PUT" : user.update
 	},
 	"/uploadHp" : {
 		"POST" : user.uploadHp
+	},
+	"/getBlogList" : {
+		"GET" : blog.getList
+	},
+	"/createBlog" : {
+		"POST" : blog.create
 	}
 };
 

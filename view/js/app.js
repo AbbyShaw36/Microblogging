@@ -1,4 +1,8 @@
-var myApp = angular.module('myApp', ['ui.router',"ngImgCrop","IsSignedInModule","LoginModule","TabModule","SignupModule","SigninModule","HeaderModule","UpdateInfoModule"]);
+var myApp = angular.module('myApp', [
+	'ui.router',"ngImgCrop","IsSignedInModule","LoginModule","TabModule",
+	"SignupModule","SigninModule","HeaderModule","UpdateInfoModule","BlogListModule","CreateBlogModule",
+	"CommentListModule"
+]);
 
 myApp.run(function($rootScope, $state, $stateParams) {
 	$rootScope.$state = $state;
@@ -23,13 +27,33 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 					controller: function ($scope,$http) {
 						$http.get("getOwner").then(
 							function (response) {
-								$scope.user = response.data.owner;
+								var data = response.data.owner;
+
+								$scope.user = {};
+								$scope.user.name = data.name;
+								$scope.user.birthday = data.birthday;
+								$scope.user.sex = data.sex ? $scope.sexs[data.sex].name : "未填";
+								$scope.user.email = data.email || "未填";
+								$scope.user.introduction = data.introduction || "未填";
+								$scope.user.hpPath = data.hpPath;
+								$scope.user.hp = data.hp || "default.png";
+								$scope.user.followers = data.followers;
+								$scope.user.followings = data.followings;
 							}
 						)
 					}
 				},
 				"createBlog@index" : {
 					templateUrl: "tpls/createBlog.html"
+				},
+				"blogList@index" : {
+					templateUrl: "tpls/blogList.html"
+				},
+				"createComment@index" : {
+					templateUrl: "tpls/createComment.html"
+				},
+				"commentList@index" : {
+					templateUrl: "tpls/commentList.html"
 				}
 			}
 		})

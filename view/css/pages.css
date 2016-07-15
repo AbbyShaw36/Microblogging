@@ -11,24 +11,18 @@
       display: block;
       padding: 10px; }
     #login .tabTitle li.active {
-      border-bottom: 2px solid #3f7fcf; }
+      border-bottom: 2px solid #3498db; }
       #login .tabTitle li.active a {
-        color: #3f7fcf; }
+        color: #3498db; }
 #login .formContent {
   padding: 20px; }
 #login .form-group {
   line-height: 30px; }
 
-#updateInfo .title {
-  margin-bottom: 20px;
-  padding-left: 10px;
-  border-left: 4px solid #000;
-  font-weight: bolder;
-  font-size: 20px; }
 #updateInfo .cropArea {
   width: 200px;
   height: 200px;
-  background: #E4E4E4;
+  background: #eee;
   overflow: hidden; }
 #updateInfo .imgBox {
   position: relative;
@@ -43,5 +37,69 @@
     position: absolute; }
 #updateInfo .btnBox {
   margin-top: 20px; }
+
+#createBlog {
+  border-bottom: 4px dotted #3e4147; }
+  #createBlog textarea {
+    float: none;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    line-height: 30px;
+    font-size: 14px; }
+  #createBlog .title {
+    margin-bottom: 0; }
+  #createBlog .row {
+    margin: 0; }
+  #createBlog .point {
+    display: inline-block; }
+    #createBlog .point .error {
+      font-size: 14px; }
+  #createBlog .btnBox {
+    display: inline-block;
+    float: right; }
+
+#blogList {
+  padding-top: 20px; }
+  #blogList ul {
+    padding: 0; }
+  #blogList li {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #dcdcdc; }
+  #blogList li + li {
+    margin-top: 20px; }
+  #blogList .top {
+    font-weight: bolder; }
+    #blogList .top a {
+      color: #3498db; }
+    #blogList .top > * {
+      padding: 0; }
+  #blogList .headPortrait {
+    display: inline-block;
+    width: 82px;
+    height: 82px;
+    border: 1px solid #dcdcdc;
+    margin-top: 10px;
+    border-radius: 50%;
+    overflow: hidden; }
+    #blogList .headPortrait img {
+      width: 100%;
+      height: 100%; }
+  #blogList .content {
+    min-height: 60px;
+    padding: 4px 10px;
+    font-size: 12px; }
+  #blogList .footer {
+    font-weight: bolder; }
+    #blogList .footer a {
+      color: #3498db; }
+  #blogList comment {
+    padding: 0; }
+  #blogList .commentBox {
+    margin-top: 20px;
+    border: 1px solid #dcdcdc; }
+  #blogList .createCommentBox textarea {
+    width: 100%;
+    height: 100%; }
 
 /*# sourceMappingURL=pages.css.map */

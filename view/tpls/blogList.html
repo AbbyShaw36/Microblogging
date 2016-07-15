@@ -1,0 +1,34 @@
+<div id="blogList" ng-controller="BlogListCtrl">
+	<h2 class="title">最新关注</h2>
+	<div ng-show="blogList.length === 0">当前还没有任何微博</div>
+	<ul ng-show="blogList.length > 0">
+		<li class="clearfix" ng-repeat="(index,blog) in blogList" id="{{'blog' + blog.id}}">
+			<div>
+				<div class="col-md-2 text-center">
+					<div class="headPortrait">
+						<img ng-src="{{blog.hp ? blog.hpPath + blog.hp : blog.hpPath + 'default.png'}}" alt="头像">
+					</div>
+				</div>
+				<div class="col-md-10">
+					<div class="clearfix top">
+						<a href="#" ng-bind="blog.publisher"></a>
+					</div>
+					<div class="content" ng-bind="blog.content"></div>
+					<div class="footer">
+						<span ng-bind="blog.publishTime | date: 'yyyy-MM-dd hh:mm:ss'"></span>
+						<a href="javascript:0;" class="r" ng-click="toggleComment(index)">评论(<span ng-bind="blog.comments"></span>)</a>
+					</div>
+				</div>
+			</div>
+			<div ng-if="showComments[index]">
+				<comment owner="blog.id" comments="commentList[index]" class="col-md-10 col-lg-offset-2">评论数据加载中...</comment>
+			</div>
+		</li>
+	</ul>
+	<div class="text-center moreBox">
+		<div ng-show="perpageCount * currentPage >= totalCount">没有更多数据了</div>
+		<div ng-show="perpageCount * currentPage < totalCount">
+			<a href="#" class="btn-link">>> 点击加载更多 <<</a>
+		</div>
+	</div>
+</div>

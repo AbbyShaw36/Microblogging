@@ -1,7 +1,7 @@
 var mysql = require("mysql");
 var connection = require("./mysql").connection;
-var logger = require("./util/logger").logger;
-var error = require("./util/error");
+var logger = require("../util/logger").logger;
+var error = require("../util/error");
 
 var dao = {};
 
@@ -27,9 +27,7 @@ dao.create = function(follow,cb) {
 	});
 }
 
-dao.getByUId = function(follow,cb) {
-	var uId = follow.getUId();
-
+dao.getByUId = function(uId,cb) {
 	var sql = "SELECT * FROM follow WHERE uId = ?";
 	var inserts = [uId];
 

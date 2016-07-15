@@ -171,7 +171,7 @@ exports.getOwner = function (req,res,cb) {
 	});
 };
 
-exports.updateInfo = function (req,res,cb) {
+exports.update = function (req,res,cb) {
 	getData.byBody(req, function (err,data) {
 		if (err) {
 			cb(err);
@@ -184,6 +184,8 @@ exports.updateInfo = function (req,res,cb) {
 		var birthday = data.birthday;
 		var email = data.email;
 		var introduction = data.introduction;
+		var hpPath = data.hpPath;
+		var hp = data.hp;
 
 		if (!id) {
 			logger.warn("[update user info error] - " + error.userIdNotProvided.discription);
@@ -203,8 +205,10 @@ exports.updateInfo = function (req,res,cb) {
 		user.setBirthday(birthday);
 		user.setEmail(email);
 		user.setIntroduction(introduction);
+		user.setHpPath(hpPath);
+		user.setHp(hp);
 
-		service.updateInfo(user,cb);
+		service.update(user,cb);
 	});
 }
 

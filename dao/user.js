@@ -92,7 +92,6 @@ dao.getList = function() {
 dao.update = function(user,cb) {
 	var id = user.getId();
 	var name = user.getName();
-	var password = user.getPassword();
 	var birthday = user.getBirthday();
 	var sex = user.getSex();
 	var email = user.getEmail();
@@ -100,8 +99,8 @@ dao.update = function(user,cb) {
 	var hpPath = user.getHpPath();
 	var hp = user.getHp();
 
-	var sql = "UPDATE user SET name = ?, password = ?, birthday = ?, sex = ?, email = ?, introduction = ?, hpPath = ?, hp = ? WHERE id = ?";
-	var inserts = [name,password,birthday,sex,email,introduction,hpPath,hp,id];
+	var sql = "UPDATE user SET name = ?, birthday = ?, sex = ?, email = ?, introduction = ?, hpPath = ?, hp = ? WHERE id = ?";
+	var inserts = [name,birthday,sex,email,introduction,hpPath,hp,id];
 
 	sql = mysql.format(sql,inserts);
 
@@ -200,28 +199,5 @@ dao.updateFollower = function(user,cb) {
 
 			cb(err,result);
 		});
-	});
-};
-
-dao.updateInfo = function (user,cb) {
-	var id = user.getId();
-	var name = user.getName();
-	var sex = user.getSex();
-	var birthday = user.getBirthday();
-	var email = user.getEmail();
-	var introduction = user.introduction;
-
-	var sql = "UPDATE user SET name=?, sex=?, birthday=?, email=?, introduction=? WHERE id=?";
-	var inserts = [name,sex,birthday,email,introduction,id];
-	sql = mysql.format(sql,inserts);
-
-	connection.query(sql, function (err,result) {
-		if (err) {
-			logger.error("[updateInfo error] - " + err.message);
-			cb(error.internalServerErr);
-			return;
-		}
-
-		cb(null,result);
 	});
 };

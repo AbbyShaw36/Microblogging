@@ -1,0 +1,20 @@
+<div class="createCommentBox clearfix" ng-controller="CreateCommentCtrl">
+	<span>发布评论：</span>
+	<form name="createCommentForm" role="form" class="pBox col-md-12">
+		<div class="row">
+			<textarea rows="4" ng-model="blogContent" name="content" required ng-maxlength="140"></textarea>
+		</div>
+		<div class="row">
+			<span class="point">
+				<span ng-hide="createCommentForm.content.$dirty && createCommentForm.content.$invalid">（内容为1-140个字数）</span>
+				<span class="error" ng-show="createCommentForm.content.$dirty && createCommentForm.content.$invalid">
+					<span ng-show="createCommentForm.content.$error.maxlength">内容长度不得大于140个字符</span>
+					<span ng-show="createCommentForm.content.$error.required">发布内容不能为空</span>
+				</span>
+			</span>
+			<span class="btnBox r">
+				<button type="button" class="btn btn1" ng-click="publishComment(blogId)">发布</button>
+			</span>
+		</div>
+	</form>
+</div>

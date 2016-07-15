@@ -18,22 +18,34 @@ span {
 ul, ol {
   list-style: none; }
 
+textarea {
+  resize: none; }
+
 /* common */
+.l {
+  float: left; }
+
+.r {
+  float: right; }
+
 .btn {
   color: #fff; }
   .btn:hover, .btn:focus, .btn.focus {
     color: #fff; }
 
 .btn1 {
-  background-color: #3f7fcf; }
+  background-color: #3498db; }
 
 .error {
   color: #e53b48;
   font-size: 12px;
   vertical-align: middle; }
 
+.pBox {
+  padding: 20px; }
+
 #header {
-  background-color: #000;
+  background-color: #3e4147;
   color: #fff; }
   #header a {
     color: #fff; }
@@ -61,20 +73,25 @@ ul, ol {
       text-decoration: underline; }
 
 #main {
-  margin-top: 20px; }
+  margin: 20px auto; }
+  #main > div {
+    display: flex; }
 
 #aside {
+  flex: 1;
   min-height: 800px;
   padding: 20px;
   line-height: 30px;
-  border-right: 4px solid #000;
-  background-color: #f0f0f0; }
+  border-right: 4px solid #3e4147;
+  background-color: #eee; }
   #aside #userInfo .headPortrait {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
+    width: 202px;
+    height: 202px;
+    margin: 20px auto;
+    background-color: #fff;
     border: 1px solid #dcdcdc;
-    background-color: #fff; }
+    border-radius: 50%;
+    overflow: hidden; }
     #aside #userInfo .headPortrait img {
       width: 100%;
       height: 100%; }
@@ -91,5 +108,15 @@ ul, ol {
     margin-top: 20px; }
     #aside #userInfo .updateInfo a {
       text-decoration: underline; }
+
+#content {
+  flex: 4;
+  padding: 0 20px; }
+  #content .title {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid #3498db;
+    font-weight: bolder;
+    font-size: 20px; }
 
 /*# sourceMappingURL=public.css.map */

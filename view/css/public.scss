@@ -1,6 +1,10 @@
-$systemColor : #3f7fcf;
-$systemColor1: #ffb752;
-$red: #e53b48;
+$systemColor1: #3e4147;
+$systemColor2: #3498db;
+$borderColor: #dcdcdc;
+$errorColor: #e53b48;
+$backgroundColor: #eee;
+$orange: #ffb752;
+$lightBule: #e0e9f4;
 
 /* reset */
 body { color: #333; }
@@ -9,23 +13,33 @@ a, a:focus, a:hover { color: #333; text-decoration: none; }
 input[type="text"],input[type="password"],input[type="date"],input[type="email"],select { height: 30px; }
 span { display: inline-block; }
 ul,ol { list-style: none; }
+textarea { resize: none; }
 
 /* common */
+.l {
+  float: left;
+}
+.r {
+  float: right;
+}
 .btn {
   color: #fff;
   &:hover, &:focus, &.focus {
 	color: #fff;
   }
 }
-.btn1 { background-color: $systemColor; }
+.btn1 { background-color: $systemColor2; }
 .error {
-  color: $red;
+  color: $errorColor;
   font-size: 12px;
   vertical-align: middle;
 }
+.pBox {
+  padding: 20px;
+}
 
 #header {
-  background-color: #000;
+  background-color: $systemColor1;
   color: #fff;
   a {
     color: #fff;
@@ -64,22 +78,28 @@ ul,ol { list-style: none; }
 }
 
 #main {
-  margin-top: 20px;
+  margin: 20px auto;
+  > div {
+    display: flex;
+  }
 }
 
 #aside {
+  flex: 1;
   min-height: 800px;
   padding: 20px;
   line-height: 30px;
-  border-right: 4px solid #000;
-  background-color: #f0f0f0;
+  border-right: 4px solid $systemColor1;
+  background-color: $backgroundColor;
   #userInfo {
     .headPortrait {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto;
-      border: 1px solid #dcdcdc;
+      width: 202px;
+      height: 202px;
+      margin: 20px auto;
       background-color: #fff;
+      border: 1px solid $borderColor;
+      border-radius: 50%;
+      overflow: hidden;
       img {
         width: 100%;
         height: 100%;
@@ -92,7 +112,7 @@ ul,ol { list-style: none; }
           text-decoration: underline;
         }
         + a {
-          border-left: 1px solid #dcdcdc;
+          border-left: 1px solid $borderColor;
         }
       }
     }
@@ -112,5 +132,14 @@ ul,ol { list-style: none; }
 }
 
 #content {
+  flex: 4;
+  padding: 0 20px;
 
+  .title {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid $systemColor2;
+    font-weight: bolder;
+    font-size: 20px;
+  }
 }

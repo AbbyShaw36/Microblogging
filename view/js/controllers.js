@@ -87,6 +87,7 @@ SignupModule.controller("SignupCtrl", function ($scope,$http) {
 			$http.post("signup",data).then(
 				function (response) {
 					alert("注册成功！");
+					location.reload();
 				},
 				function (response) {
 					alert("注册失败！");
@@ -166,19 +167,20 @@ UpdateInfoModule.controller("UpdateInfoCtrl", function ($scope,$rootScope,$http)
 
 	$scope.save = function () {
 		if ($scope.updateInfoForm.$valid) {
-			console.log($scope.user);
-			return;
 			var id = $scope.user.id;
 			var name = $scope.user.name;
 			var sex = $scope.user.sex.value;
-			var birthday = new Date($scope.user.birthday).getTime();
-			var email = $scope.user.email;
+			var birthday = $scope.user.birthday ? new Date($scope.user.birthday).getTime() : 0;
+			var email = $scope.user.email || "";
 			var introduction = $scope.user.introduction;
-			var data = "id=" + id + "&name=" + name + "&sex=" + sex + "&birthday=" + birthday + "&email=" + email + "&introduction=" + introduction;
+			var hpPath = $scope.user.hpPath;
+			var hp = $scope.user.hp || "";
+			var data = "id=" + id + "&name=" + name + "&sex=" + sex + "&birthday=" + birthday + "&email=" + email + "&introduction=" + introduction + "&hpPath=" + hpPath + "&hp=" + hp;
 
 			$http.put("updateInfo",data).then(
 				function (response) {
 					alert("保存成功！");
+					location.reload();
 				},
 				function (response) {
 					alert("保存失败！");
@@ -195,6 +197,10 @@ UpdateInfoModule.controller("UploadHpCtrl", function ($scope,$http) {
 
 	var handleFileSelect=function(evt) {
 		var file=evt.currentTarget.files[0];
+
+		if (!file) {
+			return;
+		}
 
 		if (!file.type.match("image")) {
 			alert("文件只限图片!");
@@ -219,15 +225,101 @@ UpdateInfoModule.controller("UploadHpCtrl", function ($scope,$http) {
 	angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
 
 	$scope.upload = function () {
+		if (!$scope.myImage) {
+			alert("请先选择要上传的文件！");
+			return;
+		}
+
 		var data = "hpData=" + encodeURIComponent($scope.myCroppedImage) + "&hpPath=" + $scope.user.hpPath;
 
 		$http.post("uploadHp",data).then(
 			function (response) {
-				console.log(response);
+				alert("上传成功！");
+				$scope.user.hp = response.data.hp;
+				console.log($scope.user);
 			},
 			function (response) {
+				alert("上传失败！");
 				console.log(response);
 			}
 		)
 	}
 });
+
+var CreateBlogModule = angular.module("CreateBlogModule",[]);
+CreateBlogModule.controller("CreateBlogCtrl", function ($scope,$http) {
+	$scope.publishBlog = function () {
+		if (!$scope.createBlogForm.$valid) {
+			return;
+		}
+
+		var content = encodeURIComponent($scope.blogContent);
+
+		$http.post("createBlog","content="+content).then(
+			function (response) {
+				alert("发布成功！");
+				location.reload();
+			},
+			function (response) {
+				alert("发布失败");
+				console.log(response);
+			}
+		);
+	};
+});
+
+var BlogListModule = angular.module("BlogListModule",[]);
+BlogListModule.controller("BlogListCtrl", function ($scope,$http) {
+	$scope.currentPage = 1;
+	$scope.perpageCount = 10;
+
+	$http.get("getBlogList?limit=" + $scope.perpageCount).then(
+		function (response) {
+			$scope.totalCount = response.data.totalCount;
+			$scope.blogList = response.data.blogList;
+			$scope.showComments = [];
+			$scope.commentList = [];
+
+			angular.forEach($scope.blogList,function () {
+				$scope.showComments.push(false);
+			});
+
+			console.log($scope.showComments);
+			console.log($scope.blogList);
+		},
+		function (response) {
+			alert("加载微博数据失败！");
+			console.log(response);
+		}
+	);
+
+	$scope.toggleComment = function (index) {
+		$scope.showComments[index] = !$scope.showComments[index];
+
+		if ($scope.blogList[index].comments === 0) {
+			$scope.commentList[index] = [];
+			$scope.commentList[index].length = 0;
+		}
+	}
+});
+BlogListModule.directive("comment",function () {
+	return {
+		restrict: "E",
+		scope: {
+			"commentList": "=comments",
+			"blogId": "=owner"
+		},
+		templateUrl: "tpls/comments.html"
+	};
+});
+
+var CommentListModule = angular.module("CommentListModule",[]);
+CommentListModule.controller("CreateCommentCtrl", function ($scope) {
+
+	$scope.publishComment = function () {
+
+	}
+});
+CommentListModule.controller("CommentListCtrl", function ($scope) {
+	console.log($scope.blogId);
+})

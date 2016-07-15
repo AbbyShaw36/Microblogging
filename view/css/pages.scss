@@ -1,13 +1,20 @@
-$systemColor : #3f7fcf;
+
+$systemColor1: #3e4147;
+$systemColor2: #3498db;
+$borderColor: #dcdcdc;
+$errorColor: #e53b48;
+$backgroundColor: #eee;
+$orange: #ffb752;
+$lightBule: #e0e9f4;
 
 #login {
   .formBox {
 	margin-top: 100px;
 	padding-top: 0;
-	border: 1px solid #dcdcdc;
+	border: 1px solid $borderColor;
   }
   .tabTitle {
-	border-bottom: 1px solid #dcdcdc;
+	border-bottom: 1px solid $borderColor;
 	li {
 	  font-size: 16px;
 	  font-weight: bolder;
@@ -16,9 +23,9 @@ $systemColor : #3f7fcf;
 		padding: 10px;
 	  }
 	  &.active {
-		border-bottom: 2px solid $systemColor;
+		border-bottom: 2px solid $systemColor2;
 		a {
-		  color: $systemColor;
+		  color: $systemColor2;
 		}
 	  }
 	}
@@ -32,17 +39,10 @@ $systemColor : #3f7fcf;
 }
 
 #updateInfo {
-  .title {
-	margin-bottom: 20px;
-	padding-left: 10px;
-	border-left: 4px solid #000;
-	font-weight: bolder;
-	font-size: 20px;
-  }
   .cropArea {
 	width: 200px;
 	height:200px;
-	background: #E4E4E4;
+	background: $backgroundColor;
 	overflow: hidden;
   }
   .imgBox {
@@ -50,7 +50,7 @@ $systemColor : #3f7fcf;
 	width: 200px;
 	height: 200px;
 	padding: 0;
-	border: 1px solid #dcdcdc;
+	border: 1px solid $borderColor;
 	img {
 	  width: 100%;
 	  height: 100%;
@@ -61,5 +61,93 @@ $systemColor : #3f7fcf;
   }
   .btnBox {
 	margin-top: 20px;
+  }
+}
+
+#createBlog {
+  border-bottom: 4px dotted $systemColor1;
+  textarea {
+	float: none;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	line-height: 30px;
+	font-size: 14px;
+  }
+  .title {
+	margin-bottom: 0;
+  }
+  .row {
+	margin: 0;
+  }
+  .point {
+	display: inline-block;
+	.error {
+	  font-size: 14px;
+	}
+  }
+  .btnBox {
+	display: inline-block;
+	float: right;
+  }
+}
+
+#blogList {
+  padding-top: 20px;
+  ul {
+	padding: 0;
+  }
+  li {
+	padding-bottom: 10px;
+	border-bottom: 1px dashed $borderColor;
+  }
+  li + li {
+	margin-top: 20px;
+  }
+  .top {
+	font-weight: bolder;
+	a {
+	  color: $systemColor2;
+	}
+	> * {
+		padding: 0;
+	}
+  }
+  .headPortrait {
+	display: inline-block;
+	width: 82px;
+	height: 82px;
+	border: 1px solid $borderColor;
+	margin-top: 10px;
+	border-radius: 50%;
+	overflow: hidden;
+	img {
+	  width: 100%;
+	  height: 100%;
+	}
+  }
+  .content {
+	min-height: 60px;
+	padding: 4px 10px;
+	font-size: 12px;
+  }
+  .footer {
+	font-weight: bolder;
+	a {
+	  color: $systemColor2;
+	}
+  }
+  comment {
+	padding: 0;
+  }
+  .commentBox {
+	margin-top: 20px;
+	border: 1px solid $borderColor;
+  }
+  .createCommentBox {
+	textarea {
+	  width: 100%;
+	  height: 100%;
+	}
   }
 }

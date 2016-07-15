@@ -147,8 +147,8 @@ service.getOwner = function (sessionId,cb) {
 	});
 };
 
-service.updateInfo = function (user,cb) {
-	dao.updateInfo(user, function (err,result) {
+service.update = function (user,cb) {
+	dao.update(user, function (err,result) {
 		if (err) {
 			cb(err);
 			return;
