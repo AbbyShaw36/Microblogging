@@ -9,13 +9,13 @@
 	</div>
 	<div class="infoBox clearfix">
 		<ul class="col-md-10 center-block">
-			<li>性别：<span ng-bind="user.sex">加载中...</span></li>
+			<li>性别：<span ng-bind="user.sex.name">加载中...</span></li>
 			<li>生日：<span ng-bind="user.birthday ? (user.birthday | date: 'yyyy-MM-dd') : '未填'">加载中...</span></li>
 			<li>邮箱：<span ng-bind="user.email">加载中...</span></li>
 			<li>个性介绍：<span ng-bind="user.introduction">加载中...</span></li>
 		</ul>
 	</div>
-	<div class="text-right updateInfo">
+	<div class="text-right updateInfo" ng-if="!userId">
 		<a href="#/updateInfo">编辑个人信息</a>
 	</div>
 </div>

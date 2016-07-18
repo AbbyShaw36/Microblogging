@@ -1,7 +1,5 @@
 var myApp = angular.module('myApp', [
-	'ui.router',"ngImgCrop","IsSignedInModule","LoginModule","TabModule",
-	"SignupModule","SigninModule","HeaderModule","UpdateInfoModule","BlogListModule","CreateBlogModule",
-	"CommentListModule"
+	'ui.router',"ngImgCrop","CommonModule","AccountModule","UserInfoModule","BlogModule","CommentModule"
 ]);
 
 myApp.run(function($rootScope, $state, $stateParams) {
@@ -24,24 +22,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 				},
 				"aside@index": {
 					templateUrl: "tpls/aside.html",
-					controller: function ($scope,$http) {
-						$http.get("getOwner").then(
-							function (response) {
-								var data = response.data.owner;
-
-								$scope.user = {};
-								$scope.user.name = data.name;
-								$scope.user.birthday = data.birthday;
-								$scope.user.sex = data.sex ? $scope.sexs[data.sex].name : "未填";
-								$scope.user.email = data.email || "未填";
-								$scope.user.introduction = data.introduction || "未填";
-								$scope.user.hpPath = data.hpPath;
-								$scope.user.hp = data.hp || "default.png";
-								$scope.user.followers = data.followers;
-								$scope.user.followings = data.followings;
-							}
-						)
-					}
+					controller: "GetOwnerInfoCtrl"
 				},
 				"createBlog@index" : {
 					templateUrl: "tpls/createBlog.html"
@@ -69,13 +50,31 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 			url: "/updateInfo",
 			views: {
 				"": {
-					templateUrl: "tpls/updateInfo.html"
+					templateUrl: "tpls/updateInfo.html",
+					controller: "GetOwnerInfoCtrl"
 				},
 				"header@updateInfo" : {
 					templateUrl: "tpls/header.html"
 				}
 			}
-		});
+		})
+		.state("user", {
+			url: "/user/:userId",
+			views: {
+				"": {
+					templateUrl: "tpls/user.html"
+				},
+				"header@user": {
+					templateUrl: "tpls/header.html"
+				},
+				"aside@user": {
+					templateUrl: "tpls/aside.html",
+					controller: function ($scope,$stateParams) {
+						$scope.userId = $stateParams.userId;
+					}
+				}
+			}
+		})
 });
 
 // myApp.directive("yearDrop", function () {

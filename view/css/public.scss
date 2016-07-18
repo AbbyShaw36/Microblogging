@@ -22,6 +22,9 @@ textarea { resize: none; }
 .r {
   float: right;
 }
+.flex {
+  display: flex;
+}
 .btn {
   color: #fff;
   &:hover, &:focus, &.focus {
@@ -79,8 +82,13 @@ textarea { resize: none; }
 
 #main {
   margin: 20px auto;
-  > div {
-    display: flex;
+
+  .title {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid $systemColor2;
+    font-weight: bolder;
+    font-size: 20px;
   }
 }
 
@@ -134,12 +142,4 @@ textarea { resize: none; }
 #content {
   flex: 4;
   padding: 0 20px;
-
-  .title {
-    margin-bottom: 20px;
-    padding-left: 10px;
-    border-left: 4px solid $systemColor2;
-    font-weight: bolder;
-    font-size: 20px;
-  }
 }

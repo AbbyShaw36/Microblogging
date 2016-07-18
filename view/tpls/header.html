@@ -1,4 +1,4 @@
-<div class="container" ng-controller="HeaderCtrl">
+<div class="container">
 	<div class="row col-md-12">
 		<h1 class="col-md-2" id="logo">微博社区</h1>
 		<nav id="mainNav" class="col-lg-6">
@@ -9,7 +9,7 @@
 				<li><a href="#">好友</a></li>
 			</ul>
 		</nav>
-		<div class="col-lg-4 text-right btnBox">
+		<div class="col-lg-4 text-right btnBox" ng-controller="SignoutCtrl">
 			<a href="#" id="signout" ng-click="signout()">退出</a>
 		</div>
 	</div>

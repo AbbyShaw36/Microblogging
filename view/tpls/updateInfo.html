@@ -1,76 +1,78 @@
 <div ui-view="header" id="header"></div>
 <div id="main">
 	<div id="updateInfo" class="container" ng-controller="UpdateInfoCtrl">
-		<div class="col-md-12">
-			<div class="col-md-6">
-				<h3 class="title">基本信息</h3>
-				<form role="form" name="updateInfoForm" novalidate>
-					<div class="form-group row">
-						<label class="col-md-8">
-							<span class="col-md-4 text-right">用户名：</span>
-							<input type="text" class="col-md-8" name="name" required ng-model="user.name">
-						</label>
+		<div class=" clearfix">
+			<div class="col-md-12">
+				<div class="col-md-6">
+					<h3 class="title">基本信息</h3>
+					<form role="form" name="updateInfoForm" novalidate>
+						<div class="form-group row">
+							<label class="col-md-8">
+								<span class="col-md-4 text-right">用户名：</span>
+								<input type="text" class="col-md-8" name="name" required ng-model="user.name">
+							</label>
 						<span class="error" ng-show="updateInfoForm.name.$dirty && updateInfoForm.name.$invalid">
 							<span ng-show="updateInfoForm.name.$error.required">用户名不能为空</span>
 						</span>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-8">
-							<span class="col-md-4 text-right">性别：</span>
-							<select name="sex" class="col-md-8" ng-model="user.sex" ng-options="option.name for option in sexs track by option.value">
-							</select>
-						</label>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-8">
-							<span class="col-md-4 text-right">生日：</span>
-							<input type="date" ng-model="user.birthday" class="col-md-8">
-						</label>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-8">
+								<span class="col-md-4 text-right">性别：</span>
+								<select name="sex" class="col-md-8" ng-model="user.sex" ng-options="option.name for option in sexs track by option.value">
+								</select>
+							</label>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-8">
+								<span class="col-md-4 text-right">生日：</span>
+								<input type="date" ng-model="user.birthday" class="col-md-8">
+							</label>
 						<span class="error" ng-show="updateInfoForm.birthday.$dirty && updateInfoForm.birthday.$invalid">
 							请输入正确的日期格式
 						</span>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-8">
-							<span class="col-md-4 text-right">邮箱：</span>
-							<input type="email" class="col-md-8" ng-model="user.email" name="email">
-						</label>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-8">
+								<span class="col-md-4 text-right">邮箱：</span>
+								<input type="email" class="col-md-8" ng-model="user.email" name="email">
+							</label>
 						<span class="error" ng-show="updateInfoForm.email.$dirty && updateInfoForm.email.$invalid">
 							请输入正确的邮箱格式
 						</span>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-8">
-							<span class="col-md-4 text-right">个性介绍：</span>
-							<textarea name="introduction" id="" cols="30" rows="5" class="col-md-8" ng-model="user.introduction" ng-maxlength="100"></textarea>
-						</label>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-8">
+								<span class="col-md-4 text-right">个性介绍：</span>
+								<textarea name="introduction" id="" cols="30" rows="5" class="col-md-8" ng-model="user.introduction" ng-maxlength="100"></textarea>
+							</label>
 						<span class="error" ng-show="updateInfoForm.introduction.$dirty && updateInfoForm.introduction.$invalid">
 							<span ng-show="updateInfoForm.introduction.$error.maxlength">个性介绍不可超过100个字符</span>
 						</span>
-					</div>
-				</form>
-			</div>
-			<div class="col-md-6">
-				<h3 class="title">头像设置</h3>
-				<div ng-controller="UploadHpCtrl">
-					<div>
-						<div class="cropArea col-md-6">
-							<img-crop image="myImage" result-image="myCroppedImage"></img-crop>
-						</div>
-
-						<div class="col-md-6 imgBox">
-							<img src="{{user.headPortrait}}" ng-hide="changeImg" class="oldImg">
-							<img ng-src="{{myCroppedImage}}" ng-model="user.headPortrait"/>
-						</div>
-					</div>
-					<form name="hpForm" novalidate role="form" id="hpForm">
-						<div>
-							<input type="file" id="fileInput" name="hpFile" ng-model="hpFile"/>
-						</div>
-						<div class="btnBox">
-							<button type="button" ng-click="upload()">上传</button>
 						</div>
 					</form>
+				</div>
+				<div class="col-md-6">
+					<h3 class="title">头像设置</h3>
+					<div ng-controller="UploadHpCtrl">
+						<div>
+							<div class="cropArea col-md-6">
+								<img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+							</div>
+
+							<div class="col-md-6 imgBox">
+								<img src="{{user.headPortrait}}" ng-hide="changeImg" class="oldImg">
+								<img ng-src="{{myCroppedImage}}" ng-model="user.headPortrait"/>
+							</div>
+						</div>
+						<form name="hpForm" novalidate role="form" id="hpForm">
+							<div>
+								<input type="file" id="fileInput" name="hpFile" ng-model="hpFile"/>
+							</div>
+							<div class="btnBox">
+								<button type="button" ng-click="upload()">上传</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

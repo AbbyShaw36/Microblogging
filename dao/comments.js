@@ -14,7 +14,7 @@ dao.create = function(comment,cb) {
 	var receiver = comment.getReceiver();
 	var blogId = comment.getBlogId();
 	
-	var sql = "INSERTS INTO comments (commentContent,commentublisher,commentPublishTime,commentReceiver,blogId) VALUES(?,?,?,?,?)";
+	var sql = "INSERT INTO comments (content,publisher,publishTime,receiver,blogId) VALUES(?,?,?,?,?)";
 	var inserts = [content,publisher,publishTime,receiver,blogId];
 
 	sql = mysql.format(sql,inserts);
@@ -52,7 +52,7 @@ dao.received = function(comment,cb) {
 dao.getById = function(comment,cb) {
 	var id = comment.getId();
 
-	var sql = "SELECT * FROM comments WHERE commentId = ?";
+	var sql = "SELECT comments.id,content,publisher.name as publisher,publisher.id as publisherId,publishTime,receiver.id as reciverId,receiver.name as receiver,messages,publisher.hpPath,publisher.hp FROM comments,user as publisher,user as receiver WHERE publisher.id = comments.publisher AND receiver.id = comments.receiver AND comments.id = ? ORDER BY publishTime DESC";
 	var inserts = [id];
 
 	sql = mysql.format(sql,inserts);
@@ -65,6 +65,26 @@ dao.getById = function(comment,cb) {
 		}
 
 		cb(err,result);
+	});
+};
+
+dao.getByBlogId = function (comment,cb) {
+	var blogId =  comment.getBlogId();
+
+	var sql = "SELECT comments.id,content,publisher.name as publisher,publisher.id as publisherId,publishTime,receiver.id as reciverId,receiver.name as receiver,messages,publisher.hpPath,publisher.hp FROM comments,user as publisher,user as receiver WHERE publisher.id = comments.publisher AND receiver.id = comments.receiver AND blogId = ? ORDER BY publishTime DESC";
+	var inserts = [blogId];
+
+	sql = mysql.format(sql,inserts);
+	console.log(sql);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[get comment by blogId error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(null,result);
 	});
 };
 

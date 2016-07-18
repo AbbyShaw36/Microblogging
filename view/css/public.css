@@ -28,6 +28,9 @@ textarea {
 .r {
   float: right; }
 
+.flex {
+  display: flex; }
+
 .btn {
   color: #fff; }
   .btn:hover, .btn:focus, .btn.focus {
@@ -74,8 +77,12 @@ textarea {
 
 #main {
   margin: 20px auto; }
-  #main > div {
-    display: flex; }
+  #main .title {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    border-left: 4px solid #3498db;
+    font-weight: bolder;
+    font-size: 20px; }
 
 #aside {
   flex: 1;
@@ -112,11 +119,5 @@ textarea {
 #content {
   flex: 4;
   padding: 0 20px; }
-  #content .title {
-    margin-bottom: 20px;
-    padding-left: 10px;
-    border-left: 4px solid #3498db;
-    font-weight: bolder;
-    font-size: 20px; }
 
 /*# sourceMappingURL=public.css.map */

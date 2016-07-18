@@ -31,7 +31,7 @@ dao.create = function(blog,cb) {
 dao.getById = function(blog,cb) {
 	var id = blog.getId();
 
-	var sql = "SELECT * FROM blogs WHERE blogId = ?";
+	var sql = "SELECT * FROM blogs WHERE id = ?";
 	var inserts = [id];
 
 	sql = mysql.format(sql,inserts);
@@ -53,7 +53,7 @@ dao.getList = function(params,cb) {
 	var time = Number(params.time);
 	var idList = params.idList;
 
-	var sql = "SELECT blogs.id,content,user.name as publisher,publishTime,comments,hpPath,hp FROM blogs,user WHERE";
+	var sql = "SELECT blogs.id,content,user.name as publisher,user.id as publisherId,publishTime,comments,hpPath,hp FROM blogs,user WHERE";
 	var inserts = [];
 
 	for (var i=0; i < idList; i++) {
@@ -116,7 +116,7 @@ dao.getListTotalCount = function (params,cb) {
 dao.delete = function(blog,cb) {
 	var id = blog.getId();
 
-	var sql = "DELETE FROM blogs WHERE blogId = ?";
+	var sql = "DELETE FROM blogs WHERE id = ?";
 	var inserts = [id];
 
 	sql = mysql.format(sql,inserts);
@@ -143,7 +143,7 @@ dao.updateComment = function(blog,cb) {
 		var comment = blog.getComment();
 		var comments = result[0].comments + comment;
 
-		var sql = "UPDATE blogs SET comments = ? WHERE blogId = ?";
+		var sql = "UPDATE blogs SET comments = ? WHERE id = ?";
 		var inserts = [comments,id];
 
 		sql = mysql.format(sql,inserts);

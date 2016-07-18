@@ -97,5 +97,5 @@ service.create = function (params,cb) {
 		blog.setPublisher(id);
 
 		dao.create(blog,cb);
-	})
-}
+	});
+};

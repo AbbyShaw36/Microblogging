@@ -6,6 +6,7 @@ var logger = require("./util/logger").logger;
 var router = require("./router/router").router;
 var user = require("./web/user");
 var blog = require("./web/blog");
+var comment = require("./web/comment");
 
 var handle = {
 	"/isSignedIn" : {
@@ -37,6 +38,12 @@ var handle = {
 	},
 	"/createBlog" : {
 		"POST" : blog.create
+	},
+	"/createComment" : {
+		"POST" : comment.create
+	},
+	"/getCommentsByBlogId" : {
+		"GET" : comment.getByBlogId
 	}
 };
 

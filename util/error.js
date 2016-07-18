@@ -17,3 +17,9 @@ exports.hpPathNotExists = {type: "ResourceNotFound", discription: "Head portrait
 //blog
 exports.blogListLimitNotProvided = {type: "illegalArgument", discription: "Blog List limit must provided"};
 exports.blogContentNotProvided = {type: "illegalArgument", discription: "Blog content must provided"};
+
+//comment
+exports.commentContentNotProvided = {type: "illegalArgument", discription: "Comment content must provided"};
+exports.blogIdNotProvided = {type: "illegalArgument", discription: "BlogId must provided"};
+exports.receiverNotProvided = {type: "illegalArgument", discription: "Receiver must provided"};
+exports.commentNotExists = {type: "RescouceNotFound", discription: "Comment not exists"};
