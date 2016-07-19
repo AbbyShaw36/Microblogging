@@ -147,6 +147,23 @@ service.getOwner = function (sessionId,cb) {
 	});
 };
 
+service.getUser = function (user,cb) {
+	dao.getById(user, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		if (result.length === 0) {
+			logger.warn("[get user by id error] - " + error.userNotExists.discription);
+			cb(error.userNotExists);
+			return;
+		}
+
+		cb(null,{user:result[0]});
+	});
+};
+
 service.update = function (user,cb) {
 	dao.update(user, function (err,result) {
 		if (err) {

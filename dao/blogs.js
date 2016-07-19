@@ -113,6 +113,45 @@ dao.getListTotalCount = function (params,cb) {
 	});
 }
 
+dao.getListByPublisher = function (params,cb) {
+	var time = Number(params.time);
+	var offset = Number(params.offset);
+	var limit = Number(params.limit);
+	var publisher = params.publisher;
+
+	var sql = "SELECT blogs.id,content,user.name as publisher,user.id as publisherId,publishTime,comments,hpPath,hp FROM blogs,user WHERE user.id = blogs.publisher AND blogs.publisher = ? AND publishTIme < ? LIMIT ? OFFSET ?";
+	var inserts = [publisher,time,limit,offset];
+
+	sql = mysql.format(sql,inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		cb(null, result);
+	});
+};
+
+dao.getListByPublisherTotalCount = function (params,cb) {
+	var publisher = params.publisher;
+
+	var sql = "SELECT count(*) FROM blogs WHERE publisher = ?";
+	var inserts = [publisher];
+
+	sql = mysql.format(sql,inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		cb(null,result);
+	});
+};
+
 dao.delete = function(blog,cb) {
 	var id = blog.getId();
 

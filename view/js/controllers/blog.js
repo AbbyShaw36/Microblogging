@@ -43,4 +43,25 @@ BlogModule.controller("GetBlogListCtrl", function ($scope,$http) {
 	);
 });
 
+BlogModule.controller("GetBlogListByPublisherCtrl", function ($scope,$stateParams,$http) {
+	$scope.currentPage = 1;
+	$scope.perpageCount = 10;
 
+	var publisher = $stateParams.userId;
+
+	$http.get("getBlogListByPublisher?publisher=" + publisher + "&limit=" + $scope.perpageCount).then(
+		function (response) {
+			$scope.totalCount = response.data.totalCount;
+			$scope.blogList = response.data.blogList;
+
+			for (var index in $scope.blogList) {
+				$scope.blogList[index].showComment = false;
+			}
+
+			console.log($scope.blogList);
+		},
+		function (response) {
+			console.log(response);
+		}
+	);
+});

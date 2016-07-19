@@ -15,7 +15,7 @@
 			<li>个性介绍：<span ng-bind="user.introduction">加载中...</span></li>
 		</ul>
 	</div>
-	<div class="text-right updateInfo" ng-if="!userId">
+	<div class="text-right updateInfo" ng-if="!$stateParams.userId">
 		<a href="#/updateInfo">编辑个人信息</a>
 	</div>
 </div>

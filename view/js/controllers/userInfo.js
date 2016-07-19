@@ -11,6 +11,22 @@ UserInfoModule.controller("GetOwnerInfoCtrl", function ($scope,$rootScope,$http)
 	);
 });
 
+UserInfoModule.controller("GetUserInfoCtrl", function ($scope,$rootScope,$stateParams,$http) {
+	var userId = $stateParams.userId;
+	
+	$http.get("getUser?id="+userId).then(
+		function (response) {
+			var user = response.data.user;
+
+			user.sex = $rootScope.sexs[user.sex];
+			user.birthday = user.birthday ? new Date(user.birthday) : "";
+			user.headPortrait = user.hpPath + (user.hp || "default.png");
+
+			$scope.user = user;
+		}
+	)
+});
+
 UserInfoModule.controller("UpdateInfoCtrl", function ($scope,$http) {
 	$scope.save = function () {
 		if ($scope.updateInfoForm.$valid) {

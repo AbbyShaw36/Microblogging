@@ -14,7 +14,7 @@ dao.create = function (message,cb) {
 	var receiver = message.getReceiver();
 	var commentId = message.getCommentId();
 
-	var sql = "INSERT INTO messages (messageContent,messagePublishTime,messagePublisher,messageReceiver,commentId) VALUES(?,?,?,?,?)";
+	var sql = "INSERT INTO messages (content,publishTime,publisher,receiver,commentId) VALUES(?,?,?,?,?)";
 	var inserts = [content,publishTime,publisher,receiver,commentId];
 
 	sql = mysql.format(sql,inserts);
@@ -33,7 +33,7 @@ dao.create = function (message,cb) {
 dao.getById = function (message,cb) {
 	var id = message.getId();
 
-	var sql = "SELECT * FROM messages WHERE messageId = ?";
+	var sql = "SELECT messages.id,content,publishTime,publisher.name as publisher,publisher.id as publisherId,publisher.hpPath as hpPath,publisher.hp as hp,receiver.name as receiver,receiver.id as receiverId,commentId FROM messages,user as publisher,user as receiver WHERE publisher.id = messages.publisher AND receiver.id = messages.receiver AND messages.id = ?";
 	var inserts = [id];
 
 	sql = mysql.format(sql,inserts);
@@ -45,12 +45,27 @@ dao.getById = function (message,cb) {
 			return;
 		}
 
-		cb(err,result);
+		cb(null,result);
 	});
 };
 
-dao.getList = function () {
+dao.getByCommentId = function (message,cb) {
+	var commentId = message.getCommentId();
 
+	var sql = "SELECT messages.id,content,publishTime,publisher.name as publisher,publisher.id as publisherId,publisher.hpPath as hpPath,publisher.hp as hp,receiver.name as receiver,receiver.id as receiverId,commentId FROM messages,user as publisher,user as receiver WHERE publisher.id = messages.publisher AND receiver.id = messages.receiver AND commentId = ?";
+	var inserts = [commentId];
+
+	sql = mysql.format(sql,inserts);
+	console.log(sql);
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[get message by commentId error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(null,result);
+	});
 };
 
 dao.delete = function (message,cb) {

@@ -171,6 +171,28 @@ exports.getOwner = function (req,res,cb) {
 	});
 };
 
+exports.getUser = function (req,res,cb) {
+	getData.byUrl(req, function (err,data) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		var id = data.id;
+
+		if (!id) {
+			logger.warn("[get user by id error] - " + error.userIdNotProvided.discription);
+			cb(error.userIdNotProvided);
+			return;
+		}
+
+		var user = new User();
+		user.setId(id);
+
+		service.getUser(user,cb);
+	});
+};
+
 exports.update = function (req,res,cb) {
 	getData.byBody(req, function (err,data) {
 		if (err) {

@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp', [
-	'ui.router',"ngImgCrop","CommonModule","AccountModule","UserInfoModule","BlogModule","CommentModule"
+	'ui.router',"ngImgCrop","CommonModule","AccountModule","UserInfoModule","BlogModule","CommentModule","MessageModule"
 ]);
 
 myApp.run(function($rootScope, $state, $stateParams) {
@@ -69,9 +69,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 				},
 				"aside@user": {
 					templateUrl: "tpls/aside.html",
-					controller: function ($scope,$stateParams) {
-						$scope.userId = $stateParams.userId;
-					}
+					controller: "GetUserInfoCtrl"
+				},
+				"blogList@user" : {
+					templateUrl: "tpls/blogList.html"
+				},
+				"createComment@user" : {
+					templateUrl: "tpls/createComment.html"
+				},
+				"commentList@user" : {
+					templateUrl: "tpls/commentList.html"
 				}
 			}
 		})

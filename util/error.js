@@ -23,3 +23,12 @@ exports.commentContentNotProvided = {type: "illegalArgument", discription: "Comm
 exports.blogIdNotProvided = {type: "illegalArgument", discription: "BlogId must provided"};
 exports.receiverNotProvided = {type: "illegalArgument", discription: "Receiver must provided"};
 exports.commentNotExists = {type: "RescouceNotFound", discription: "Comment not exists"};
+
+//message
+exports.messageContentNotProvided = {type: "illegalArgument", discription: "Message content must provided"};
+exports.messageReceiverNotProvided = {type: "illegalArgument", discription: "Message receiver must provided"};
+exports.commentIdNotProvided = {type: "illegalArgument", discription: "Comment Id must provided"};
+
+// follow
+exports.uIdNotProvided = {type: "illegalArgument", discription: "User ID must provided"};
+exports.fuIdNotProvided = {type: "illegalArgument", discription: "Follower ID must provided"};

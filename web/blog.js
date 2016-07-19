@@ -33,6 +33,41 @@ exports.getList = function (req,res,cb) {
 	});
 };
 
+exports.getListByPublisher = function (req,res,cb) {
+	getData.byUrl(req, function (err,data) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		var publisher = data.publisher;
+		var limit = data.limit;
+		var time = data.time || new Date().getTime();
+		var offset = data.offset || 0;
+
+		if (!publisher) {
+			logger.warn("[get blog list by userId error] - " + error.userIdNotProvided.description);
+			cb(error.userIdNotProvided);
+			return;
+		}
+
+		if (!limit) {
+			logger.warn("[get blog list by userId error] - " + error.blogListLimitNotProvided.discription);
+			cb(error.blogListLimitNotProvided);
+			return;
+		}
+
+		var params = {
+			time : time,
+			limit: limit,
+			offset: offset,
+			publisher: publisher
+		}
+
+		service.getListByPublisher(params,cb);
+	});
+}
+
 exports.create = function (req,res,cb) {
 	getData.byBody(req, function (err,data) {
 		if (err) {

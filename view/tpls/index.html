@@ -4,8 +4,13 @@
 		<div class="flex">
 			<div ui-view="aside" id="aside">加载中...</div>
 			<div id="content">
-				<div ui-view="createBlog"></div>
-				<div ui-view="blogList"></div>
+				<div>
+					<div ui-view="createBlog"></div>
+				</div>
+				<div id="blogList" ng-controller="GetBlogListCtrl">
+					<h2 class="title">最新关注</h2>
+					<div ui-view="blogList"></div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -27,8 +27,10 @@ dao.create = function(follow,cb) {
 	});
 }
 
-dao.getByUId = function(uId,cb) {
-	var sql = "SELECT * FROM follow WHERE uId = ?";
+dao.getByUId = function(follow,cb) {
+	var uId = follow.getUId();
+
+	var sql = "SELECT user.id,user.name,user. FROM follow,user WHERE uId = ? AND follow.fuId = user.id";
 	var inserts = [uId];
 
 	sql = mysql.format(sql,inserts);

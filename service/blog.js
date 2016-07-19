@@ -74,6 +74,31 @@ service.getList = function (params,cb) {
 	});
 };
 
+service.getListByPublisher = function (params,cb) {
+	dao.getListByPublisherTotalCount(params, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		var count = result[0].totalCount;
+
+		if (count <=params.offset) {
+			cb(null, {totalCount: count, blogList: []});
+			return;
+		}
+
+		dao.getListByPublisher(params, function (err,result) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			cb(null,{totalCount: count, blogList: result});
+		});
+	});
+};
+
 service.create = function (params,cb) {
 	var content = params.content;
 	var sessionId = params.sessionId;

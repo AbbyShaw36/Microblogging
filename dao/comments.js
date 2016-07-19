@@ -118,14 +118,14 @@ dao.updateMessage = function(comment,cb) {
 		var message = comment.getMessage();
 		var messages = result[0].messages + message;
 
-		var sql = "UPDATE comments SET messages = ? WHERE commentId = ?";
+		var sql = "UPDATE comments SET messages = ? WHERE id = ?";
 		var inserts = [messages,id];
 
 		sql = mysql.format(sql,inserts);
 
 		connection.query(sql, function(err,result) {
 			if (err) {
-				logger.error("[comment addMessage error] - " + err.message);
+				logger.error("[comment update messages error] - " + err.message);
 				cb(error.internalServerErr);
 				return;
 			}

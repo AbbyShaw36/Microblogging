@@ -1,0 +1,14 @@
+<div ng-controller="IsSignedInCtrl">
+	<div ui-view="header" id="header">加载中...</div>
+	<div id="main" class="container">
+		<div class="flex">
+			<div ui-view="aside" id="aside">加载中...</div>
+			<div id="content">
+				<div id="blogList" ng-controller="GetBlogListByPublisherCtrl">
+					<h2 class="title">发布微博</h2>
+					<div ui-view="blogList"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

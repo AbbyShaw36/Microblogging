@@ -7,6 +7,8 @@ var router = require("./router/router").router;
 var user = require("./web/user");
 var blog = require("./web/blog");
 var comment = require("./web/comment");
+var message = require("./web/message");
+var follow = require("./web/follow");
 
 var handle = {
 	"/isSignedIn" : {
@@ -44,6 +46,21 @@ var handle = {
 	},
 	"/getCommentsByBlogId" : {
 		"GET" : comment.getByBlogId
+	},
+	"/createMessage" : {
+		"POST" : message.create
+	},
+	"/getMessageByCommentId" : {
+		"GET" : message.getByCommentId
+	},
+	"/getUser" : {
+		"GET" : user.getUser
+	},
+	"/getBlogListByPublisher" : {
+		"GET" : blog.getListByPublisher
+	},
+	"/getFollowers" : {
+		"GET" : follow.getFollowers
 	}
 };
 

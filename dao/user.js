@@ -30,7 +30,7 @@ dao.create = function(user,cb) {
 dao.getById = function(user,cb) {
 	var id = user.getId();
 
-	var sql = "SELECT * FROM user WHERE id = ?";
+	var sql = "SELECT id,name,birthday,sex,email,introduction,hpPath,hp,followings,followers FROM user WHERE id = ?";
 	var inserts = [id];
 
 	sql = mysql.format(sql,inserts);

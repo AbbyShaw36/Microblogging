@@ -21,15 +21,27 @@ CommentModule.controller("GetCommentsCtrl", function ($scope,$http) {
 
 			for (var index in comments) {
 				var comment = comments[index];
+				(function (comment) {
+					comment.reply = false;
 
-				comment.reply = false;
+					if (comment.messages === 0) {
+						return;
+					}
 
-				if (comment.messages === 0) {
-					break;
-				}
+					var commentId = comment.id;
+					console.log(commentId);
 
-				var commentId = comment.id;
-				console.log(commentId);
+					$http.get("getMessageByCommentId?commentId=" + commentId).then(
+						function (response) {
+							comment.messageList = response.data.messageList;
+							console.log(comment.messageList);
+						},
+						function (response) {
+							alert("加载回复数据失败！");
+							console.log(response);
+						}
+					);
+				})(comment);
 			}
 
 			$scope.commentList = comments;
