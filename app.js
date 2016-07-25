@@ -61,6 +61,9 @@ var handle = {
 	},
 	"/getFollowers" : {
 		"GET" : follow.getFollowers
+	},
+	"/getBlogListByOwner" : {
+		"GET" : blog.getListByOwner
 	}
 };
 

@@ -144,11 +144,53 @@ dao.getListByPublisherTotalCount = function (params,cb) {
 
 	connection.query(sql, function (err,result) {
 		if (err) {
-			cb(err);
+			logger.error("[get blog list total count error] - " + err.message);
+			cb(error.internalServerErr);
 			return;
 		}
 
 		cb(null,result);
+	});
+};
+
+dao.getListByOwner = function (params,cb) {
+	var time = Number(params.time);
+	var offset = Number(params.offset);
+	var limit = Number(params.limit);
+	var owner = params.owner;
+
+	var sql = "SELECT blogs.id,content,user.name as publisher,user.id as publisherId,publishTime,comments,hpPath,hp FROM blogs,user WHERE user.id = blogs.publisher AND user.id = ? AND publishTime < ? LIMIT ? OFFSET ?";
+	var inserts = [owner,time,limit,offset];
+
+	sql = mysql.format(sql, inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[get blog list by owner error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(null,result);
+	});
+};
+
+dao.getListByOwnerTotalCount = function (params,cb) {
+	var owner = params.owner;
+
+	var sql = "SELECT count(*) FROM blogs WHERE publisher = ?";
+	var inserts = [owner];
+
+	sql = mysql.format(sql,inserts);
+
+	connection.query(sql, function (err,result) {
+		if (err) {
+			logger.error("[get blog list total count error] - " + err.message);
+			cb(error.internalServerErr);
+			return;
+		}
+
+		cb(err,result);
 	});
 };
 

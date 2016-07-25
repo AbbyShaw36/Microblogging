@@ -59,8 +59,26 @@ textarea { resize: none; }
       margin: 0;
       padding: 10px;
       font-weight: bolder;
+      ul {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        padding: 0 5px;
+        background-color: rgba(0,0,0,.5);
+        line-height: 40px;
+        li {
+          border-left: none;
+          &:last-child {
+            border-right: none;
+          }
+          & + li {
+            border-top: 1px solid #fff;
+          }
+        }
+      }
     }
     li {
+      position: relative;
       border-left: 1px solid #fff;
       &:last-child {
         border-right: 1px solid #fff;

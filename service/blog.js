@@ -4,6 +4,7 @@ var sessionDao = require("../dao/session").dao;
 var followDao = require("../dao/follow").dao;
 var dao = require("../dao/blogs").dao;
 var Blog = require("../model/blog").Blog;
+var Follow = require("../model/follow").Follow;
 
 var service = {};
 
@@ -29,7 +30,10 @@ service.getList = function (params,cb) {
 
 		var id = result[0].userId;
 
-		followDao.getByUId(id,function (err,result) {
+		var follow = new Follow();
+		follow.setUId(id);
+
+		followDao.getByUId(follow,function (err,result) {
 			if(err) {
 				cb(err);
 				return;
@@ -95,6 +99,48 @@ service.getListByPublisher = function (params,cb) {
 			}
 
 			cb(null,{totalCount: count, blogList: result});
+		});
+	});
+};
+
+service.getListByOwner = function (params,cb) {
+	var sessionId = params.sessionId;
+
+	sessionDao.get(sessionId, function (err,result) {
+		if (err) {
+			cb(err);
+			return;
+		}
+
+		if (result.length === 0) {
+			logger.warn("[get blog list by owner error] - " + error.unauthorized.discription);
+			cb(error.unauthorized);
+			return;
+		}
+
+		params.owner = result[0].userId;
+
+		dao.getListByOwnerTotalCount(params, function (err,result) {
+			if (err) {
+				cb(err);
+				return;
+			}
+
+			var count = result[0].totalCount;
+
+			if (count <= params.offset) {
+				cb(null, {totalCount: count, blogList: []});
+				return;
+			}
+
+			dao.getListByOwner(params, function (err,result) {
+				if (err) {
+					cb(err);
+					return;
+				}
+
+				cb(null, {totalCount: count, blogList: result});
+			});
 		});
 	});
 };

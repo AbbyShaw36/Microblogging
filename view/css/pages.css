@@ -131,4 +131,31 @@
       border-width: 0 10px 20px 10px;
       border-color: transparent transparent #eee transparent; }
 
+#followList {
+  line-height: 30px; }
+  #followList li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #dcdcdc; }
+    #followList li + li {
+      padding-top: 20px; }
+  #followList .headPortrait {
+    width: 82px;
+    height: 82px;
+    margin-top: 4px;
+    border: 1px solid #dcdcdc; }
+    #followList .headPortrait img {
+      width: 100%;
+      height: 100%; }
+  #followList .name {
+    font-weight: bolder;
+    color: #3498db; }
+  #followList .follow {
+    margin-left: 10px; }
+    #followList .follow a {
+      padding: 0 10px; }
+      #followList .follow a:hover {
+        text-decoration: underline; }
+      #followList .follow a:last-child {
+        border-left: 1px solid #3e4147; }
+
 /*# sourceMappingURL=pages.css.map */

@@ -11,6 +11,14 @@ myApp.run(function($rootScope, $state, $stateParams) {
 myApp.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/index");
 	$stateProvider
+		.state("login", {
+			url: "/login",
+			views: {
+				"": {
+					templateUrl: "tpls/login.html"
+				}
+			}
+		})
 		.state("index", {
 			url: "/index",
 			views: {
@@ -38,11 +46,48 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		.state("login", {
-			url: "/login",
+		.state("blogList", {
+			url: "/blogList",
 			views: {
 				"": {
-					templateUrl: "tpls/login.html"
+					templateUrl: "tpls/blog.html"
+				},
+				"header@blogList": {
+					templateUrl: "tpls/header.html"
+				},
+				"aside@blogList": {
+					templateUrl: "tpls/aside.html",
+					controller: "GetOwnerInfoCtrl"
+				},
+				"createBlog@blogList": {
+					templateUrl: "tpls/createBlog.html"
+				},
+				"blogList@blogList": {
+					templateUrl: "tpls/blogList.html"
+				},
+				"createComment@blogList": {
+					templateUrl: "tpls/createComment.html"
+				},
+				"commentList@blogList": {
+					templateUrl: "tpls/commentList.html"
+				}
+			}
+		})
+		.state("following", {
+			url: "/following",
+			views: {
+				"": {
+					templateUrl: "tpls/follow.html"
+				},
+				"header@following": {
+					templateUrl: "tpls/header.html"
+				},
+				"aside@following": {
+					templateUrl: "tpls/aside.html",
+					controller: "GetOwnerInfoCtrl"
+				},
+				"followList@following": {
+					templateUrl: "tpls/followList.html"
 				}
 			}
 		})
