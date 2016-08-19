@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/ng-img-crop.css">
 </head>
 
-<body>
+<body ng-controller="checkSignedInCtrl">
   <header ng-include="'tpls/header.html'" id="header"></header>
   <div ui-view>加载中...</div>
 
@@ -24,13 +24,19 @@
 
   <!--services-->
   <script src="js/services/account.js"></script>
+  <script src="js/services/userInfo.js"></script>
+  <script src="js/services/blog.js"></script>
+  <script src="js/services/comment.js"></script>
+  <script src="js/services/message.js"></script>
 
   <!--directives-->
   <script src="js/directives/signup.js"></script>
+  <script src="js/directives/userInfo.js"></script>
 
   <!--controllers-->
   <script src="js/controllers/account.js"></script>
   <script src="js/controllers/tab.js"></script>
+  <script src="js/controllers/userInfo.js"></script>
 </body>
 
 </html>

@@ -18,6 +18,8 @@ myApp.run(function($rootScope, $state, $stateParams) {
 });
 
 myApp.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise("/home");
+
   $stateProvider
     .state("login", {
       url: "/login",
@@ -27,34 +29,15 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    /*    .state("index", {*/
-    //url: "/index",
-    //views: {
-    //"": {
-    //templateUrl: "tpls/index.html"
-    //},
-    //"header@index": {
-    //templateUrl: "tpls/header.html"
-    //},
-    //"aside@index": {
-    //templateUrl: "tpls/aside.html",
-    //controller: "GetOwnerInfoCtrl"
-    //},
-    //"createBlog@index": {
-    //templateUrl: "tpls/createBlog.html"
-    //},
-    //"blogList@index": {
-    //templateUrl: "tpls/blogList.html"
-    //},
-    //"createComment@index": {
-    //templateUrl: "tpls/createComment.html"
-    //},
-    //"commentList@index": {
-    //templateUrl: "tpls/commentList.html"
-    //}
-    //}
-    //})
-    //.state("blogList", {
+    .state("home", {
+      url: "/home",
+      views: {
+        "": {
+          templateUrl: "tpls/home.html"
+        }
+      }
+    })
+    /*    .state("blogList", {*/
     //url: "/blogList",
     //views: {
     //"": {

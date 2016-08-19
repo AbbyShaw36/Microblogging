@@ -1,13 +1,14 @@
-myApp.factory("accountService", ["$http", "$location",
-  function($http, $location) {
+//回复
+myApp.factory("messageService", ["$http",
+  function($http) {
     var factory = {};
 
-    //注册
-    factory.signup = function(data, success_cb, err_cb) {
-      $http.post("signup", data).then(
+    //发布回复
+    factory.create = function(data, success_cb, err_cb) {
+      $http.post("createMessage", data).then(
         function(response) {
           console.log(response);
-          alert("注册成功！");
+          alert("发布成功！");
 
           if (typeof success_cb === "function") {
             success_cb(response);
@@ -15,7 +16,7 @@ myApp.factory("accountService", ["$http", "$location",
         },
         function(response) {
           console.log(response);
-          alert("注册失败！");
+          alert("发布失败！");
 
           if (typeof err_cb === "function") {
             err_cb(response);
@@ -24,11 +25,12 @@ myApp.factory("accountService", ["$http", "$location",
       );
     };
 
-    //登录
-    factory.signin = function(data, success_cb, err_cb) {
-      $http.post("signin", data).then(
+    //删除回复
+    factory.del = function(data, success_cb, err_cb) {
+      $http.delete("deleteMessage?" + data).then(
         function(response) {
           console.log(response);
+          alert("删除成功！");
 
           if (typeof success_cb === "function") {
             success_cb(response);
@@ -36,7 +38,7 @@ myApp.factory("accountService", ["$http", "$location",
         },
         function(response) {
           console.log(response);
-          alert("登录失败！");
+          alert("删除失败！");
 
           if (typeof err_cb === "function") {
             err_cb(response);
@@ -45,41 +47,22 @@ myApp.factory("accountService", ["$http", "$location",
       );
     };
 
-    //退出
-    factory.signout = function(success_cb, err_cb) {
-      $http.delete("signout").then(
+    //获取回复列表
+    factory.getList = function(data, success_cb, err_cb) {
+      $http.get("getMessageList?" + data).then(
         function(response) {
           console.log(response);
 
           if (typeof success_cb === "function") {
-            success_cb(response);
+            success_cb(response.data);
           }
         },
         function(response) {
           console.log(response);
-          alert("退出失败！");
+          alert("加载失败！");
 
           if (typeof err_cb === "function") {
             err_cb(response);
-          }
-        }
-      );
-    };
-
-    factory.checkSignedIn = function(success_cb, err_cb) {
-      $http.get("isSignedIn").then(
-        function(response) {
-          console.log(response);
-
-          if (typeof success_cb === "function") {
-            cb(response);
-          }
-        },
-        function(response) {
-          console.log(response);
-
-          if (typeof err_cb === "function") {
-            cb(response);
           }
         }
       );

@@ -1,21 +1,22 @@
-myApp.factory("accountService", ["$http", "$location",
-  function($http, $location) {
+//评论
+myApp.factory("commentService", ["$http",
+  function($http) {
     var factory = {};
 
-    //注册
-    factory.signup = function(data, success_cb, err_cb) {
-      $http.post("signup", data).then(
+    //发布评论
+    factory.create = function(data, success_cb, err_cb) {
+      $http.post("createComment", data).then(
         function(response) {
           console.log(response);
-          alert("注册成功！");
+          alert("发布评论成功！");
 
           if (typeof success_cb === "function") {
             success_cb(response);
           }
         },
         function(response) {
+          alert("发布评论失败！");
           console.log(response);
-          alert("注册失败！");
 
           if (typeof err_cb === "function") {
             err_cb(response);
@@ -24,9 +25,31 @@ myApp.factory("accountService", ["$http", "$location",
       );
     };
 
-    //登录
-    factory.signin = function(data, success_cb, err_cb) {
-      $http.post("signin", data).then(
+    //删除评论
+    factory.del = function(data, success_cb, err_cb) {
+      $http.delete("deleteComment?" + data).then(
+        function(response) {
+          console.log(response);
+          alert("删除成功！");
+
+          if (typeof success_cb === "function") {
+            success_cb(response);
+          }
+        },
+        function(response) {
+          console.log(response);
+          alert("删除失败！");
+
+          if (typeof err_cb === "function") {
+            err_cb(response);
+          }
+        }
+      );
+    };
+
+    //获取评论列表
+    factory.getList = function(url, success_cb, err_cb) {
+      $http.get(url).then(
         function(response) {
           console.log(response);
 
@@ -36,50 +59,10 @@ myApp.factory("accountService", ["$http", "$location",
         },
         function(response) {
           console.log(response);
-          alert("登录失败！");
+          alert("加载失败！");
 
           if (typeof err_cb === "function") {
             err_cb(response);
-          }
-        }
-      );
-    };
-
-    //退出
-    factory.signout = function(success_cb, err_cb) {
-      $http.delete("signout").then(
-        function(response) {
-          console.log(response);
-
-          if (typeof success_cb === "function") {
-            success_cb(response);
-          }
-        },
-        function(response) {
-          console.log(response);
-          alert("退出失败！");
-
-          if (typeof err_cb === "function") {
-            err_cb(response);
-          }
-        }
-      );
-    };
-
-    factory.checkSignedIn = function(success_cb, err_cb) {
-      $http.get("isSignedIn").then(
-        function(response) {
-          console.log(response);
-
-          if (typeof success_cb === "function") {
-            cb(response);
-          }
-        },
-        function(response) {
-          console.log(response);
-
-          if (typeof err_cb === "function") {
-            cb(response);
           }
         }
       );
