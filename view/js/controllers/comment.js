@@ -1,82 +1,70 @@
-var CommentModule = angular.module("CommentModule",[]);
+// 发布评论
+myApp.controller("createCommentCtrl",["$scope","commentService",
+  function($scope,commentService) {
+    $scope.createComment = function() {
+      if (!$scope.createCommentForm.$invalid) {
+        return;
+      }
 
-CommentModule.directive("comment",function () {
-	return {
-		restrict: "E",
-		scope: {
-			"commentList": "=comments",
-			"blogId": "=owner",
-			"receiver" : "=receiver",
-		},
-		templateUrl: "tpls/comments.html"
-	};
-});
+      var content = encodeURIComponent($scope.comment.content);
+      var blogId = $scope.blog.id;
+      var receiver = $scope.blog.publisher.id;
+      var data = "content=" + content + "&blogId=" + blogId + "&receiver=" + receiver;
 
-CommentModule.controller("GetCommentsCtrl", function ($scope,$http) {
-	console.log($scope.blogId);
-	$http.get("getCommentsByBlogId?blogId=" + $scope.blogId).then(
-		function (response) {
-			var comments = response.data.comments;
-			console.log(comments);
+      commentService.create(data,
+        function(response) {
+          var comment = response.data.comment;
 
-			for (var index in comments) {
-				var comment = comments[index];
-				(function (comment) {
-					comment.reply = false;
+          $scope.commentList.unshift(comment);
+          $scope.blog.comments++;
+        }
+      );
+    };
+  }
+]);
 
-					if (comment.messages === 0) {
-						return;
-					}
+// 删除评论
+myApp.controller("deleteCommentCtrl",["$scope","commentService",
+  function($scope, commentService) {
+    $scope.deleteComment = function(id) {
+      var isDel = confirm("是否确定删除此评论？");
+      var data = "id=";
 
-					var commentId = comment.id;
-					console.log(commentId);
+      if (!isDel) {
+        return;
+      }
 
-					$http.get("getMessageByCommentId?commentId=" + commentId).then(
-						function (response) {
-							comment.messageList = response.data.messageList;
-							console.log(comment.messageList);
-						},
-						function (response) {
-							alert("加载回复数据失败！");
-							console.log(response);
-						}
-					);
-				})(comment);
-			}
+      data += id;
+      commentService.del(data,
+        function() {
+          $scope.commentList.splice($scope.index,1);
+          $scope.blog.comments--;
+        }
+      );
+    };
+  }
+]);
 
-			$scope.commentList = comments;
-		},
-		function (response) {
-			alert("加载评论数据失败！");
-			console.log(response);
-		}
-	);
-});
+// 获取评论列表
+myApp.controller("getCommentListCtrl",["$scope","commentService",
+  function($scope, commentService) {
+    $scope.currentPage = 1;
+    $scope.perPage = 10;
+    $scope.orderBy = {
+      column: "publishTime",
+      option: "DESC"
+    };
+    $scope.commentList = [];
 
-CommentModule.controller("CreateCommentCtrl", function ($scope,$http) {
-	$scope.publishComment = function () {
-		if ($scope.createCommentForm.$invalid) {
-			return;
-		}
+    $scope.getCommentList = function() {
+      var data = "currentPage=" + $scope.currentPage + "&perPage=" + $scope.perPage + "&orderBy=" + orderBy + "&blogId=" + $scope.blog.id;
 
-		var content = encodeURIComponent($scope.blogContent);
-		var blogId = $scope.blogId;
-		var receiver = $scope.receiver;
-		var data = "content=" + content + "&blogId=" + blogId + "&receiver=" + receiver;
-
-		$http.post("createComment",data).then(
-			function (response) {
-				alert("发布评论成功！");
-
-				var comment = response.data.comment;
-
-				$scope.commentList.unshift(comment);
-				$scope.blogContent = "";
-			},
-			function (response) {
-				alert("发布评论失败！");
-				console.log(response);
-			}
-		);
-	};
-});
+      commentService.getList(data,
+        function(response) {
+          $scope.commentList.push(response.data.commentList);
+          $scope.blog.comments = response.data.comments;
+        }
+      );
+    };
+  }
+]);

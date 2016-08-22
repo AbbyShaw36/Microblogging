@@ -1,3 +1,4 @@
+// 发布微博
 myApp.controller("createBlogCtrl", ["$scope", "blogService",
   function($scope, blogService) {
     $scope.createBlog = function() {
@@ -9,101 +10,55 @@ myApp.controller("createBlogCtrl", ["$scope", "blogService",
       var data = "content=" + content;
 
       blogService.create(data,
-        function() {
+        function(response) {
+          var blog = response.data.blog;
 
+          $scope.blogList.unshift(blog);
         }
       );
-    }
+    };
   }
 ]);
 
+// 获取微博列表
+myApp.controller("getBlogListCtrl",["$scope","blogService",
+  function($scope,blogService) {
+    $scope.currentPage = 1;
+    $scope.perPage = 10;
+    $scope.orderBy = {
+      column: "publishTime",
+      option: "DESC"
+    };
+    $scope.blogList = [];
 
+    $scope.getBlogList = function(publisher) {
+      var data = "currentPage=" + $scope.currentPage + "&perPage=" + $scope.perPage + "&publisher=" + publisher + "&orderBy=" + orderBy;
+      blogService.getBlogList(data,
+        function(response) {
+          $scope.blogList.push(response.data.blogList);
+        }
+      )
+    };
+  }
+]);
 
-/*var BlogModule = angular.module("BlogModule",[]);*/
+// 删除微博
+myApp.controller("deleteBlogCtrl",["$scope","blogService",
+  function($scope,blogService) {
+    $scope.deleteBlog = function(id) {
+      var isDel = confirm("是否确定删除该条微博？");
+      var data = "id=";
 
-//BlogModule.controller("CreateBlogCtrl", function ($scope,$http) {
-//$scope.publishBlog = function () {
-//if (!$scope.createBlogForm.$valid) {
-//return;
-//}
+      if (!isDel) {
+        return;
+      }
 
-//var content = encodeURIComponent($scope.blogContent);
-
-//$http.post("createBlog","content="+content).then(
-//function (response) {
-//alert("发布成功！");
-//location.reload();
-//},
-//function (response) {
-//alert("发布失败");
-//console.log(response);
-//}
-//);
-//};
-//});
-
-//BlogModule.controller("GetBlogListCtrl", function ($scope,$http) {
-//$scope.currentPage = 1;
-//$scope.perpageCount = 10;
-
-//$http.get("getBlogList?limit=" + $scope.perpageCount).then(
-//function (response) {
-//$scope.totalCount = response.data.totalCount;
-//$scope.blogList = response.data.blogList;
-
-//for (var index in $scope.blogList) {
-//$scope.blogList[index].showComment = false;
-//}
-
-//console.log($scope.blogList);
-//},
-//function (response) {
-//alert("加载微博数据失败！");
-//console.log(response);
-//}
-//);
-//});
-
-//BlogModule.controller("GetBlogListByPublisherCtrl", function ($scope,$stateParams,$http) {
-//$scope.currentPage = 1;
-//$scope.perpageCount = 10;
-
-//var publisher = $stateParams.userId;
-
-//$http.get("getBlogListByPublisher?publisher=" + publisher + "&limit=" + $scope.perpageCount).then(
-//function (response) {
-//$scope.totalCount = response.data.totalCount;
-//$scope.blogList = response.data.blogList;
-
-//for (var index in $scope.blogList) {
-//$scope.blogList[index].showComment = false;
-//}
-
-//console.log($scope.blogList);
-//},
-//function (response) {
-//console.log(response);
-//}
-//);
-//});
-
-//BlogModule.controller("GetBlogListByOwnerCtrl", function ($scope,$http) {
-//$scope.currentPage = 1;
-//$scope.perpageCount = 10;
-
-//$http.get("getBlogListByOwner?limit=" + $scope.perpageCount).then(
-//function (response) {
-//$scope.totalCount = response.data.totalCount;
-//$scope.blogList = response.data.blogList;
-
-//for (var index in $scope.blogList) {
-//$scope.blogList[index].showComment = false;
-//}
-
-//console.log($scope.blogList);
-//},
-//function (response) {
-//console.log(response);
-//}
-//)
-/*})*/
+      data += id;
+      blogService.del(data,
+        function() {
+          $scope.blogList.splice($scope.index,1);
+        }
+      );
+    };
+  }
+]);

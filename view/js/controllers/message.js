@@ -1,45 +1,64 @@
-var MessageModule = angular.module("MessageModule",[]);
+// 发布回复
+myApp.controller("createMessageCtrl",["$scope","messageService",
+  function($scope,messageService) {
+    $scope.createMessage = function() {
+      var content = $scope.message.content;
+      var commentId = $scope.comment.id;
+      var receiver = $scope.comment.publisher.id;
+      var data = "content=" + content + "&commentId" + commentId + "&receiver=" + receiver;
 
-MessageModule.controller("CreateMessageCtrl", function ($scope,$http) {
-	$scope.replyComment = function () {
-		if ($scope.createMessageForm.$invalid) {
-			alert("请输入合法内容！");
-			return;
-		}
+      messageService.create(data,
+        function(response) {
+          $scope.messageList.unshift(response.data.message);
+          $scope.comment.messages++;
+        }
+      );
+    };
+  }
+]);
 
-		var receiver = $scope.comment.publisherId;
+// 删除回复
+myApp.controller("deleteMessageCtrl",["$scope","messageService",
+  function($scope,messageService) {
+    $scope.deleteMessage = function(id) {
+      var isDel = confirm("是否确定删除该回复？");
+      var data = "id=";
 
-		createMessage(receiver);
-	}
+      if (!isDel) {
+        return;
+      }
 
-	$scope.replyMessage = function () {
-		if ($scope.createMessageForm.$invalid) {
-			alert("请输入合法内容");
-			return;
-		}
+      data += id;
+      messageService.del(data,
+        function() {
+          $scope.messageList.splice($scope.index,1);
+          $scope.comment.messages--;
+        }
+      );
+    };
+  }
+]);
 
-		var receiver = $scope.message.publisherId;
+// 获取回复列表
+myApp.controller("getMessageListCtrl",["$scope","messageService",
+  function($scope,messageService) {
+    $scope.currentPage = 1;
+    $scope.perPage = 10;
+    $scope.orderBy = {
+      column: "publishTime",
+      option: "DESC"
+    };
+    $scope.messageList = [];
 
-		createMessage(receiver);
-	}
+    $scope.getMessageList = function() {
+      var data = "currentPage=" + currentPage + "&perPage=" + perPage + "&orderBy=" + orderBy;
 
-	function createMessage(receiver) {
-		var content = encodeURIComponent($scope.messageContent);
-		var commentId = $scope.comment.id;
-
-		var data = "content=" + content + "&receiver=" + receiver + "&commentId=" + commentId;
-
-		$http.post("createMessage",data).then(
-			function (response) {
-				alert("回复成功！");
-				var message = response.data.message;
-				$scope.comment.messageList.push(message);
-				$scope.messageContent = "";
-				$scope.message.reply = false;
-			},
-			function (response) {
-				console.log(response);
-			}
-		);
-	}
-});
+      messageService.getList(data,
+        function(response) {
+          $scope.messageList.push(response.data.messageList);
+          $scope.comment.messages = response.data.messages;
+        }
+      );
+    }
+  }
+]);

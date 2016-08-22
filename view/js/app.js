@@ -37,87 +37,95 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    /*    .state("blogList", {*/
-    //url: "/blogList",
-    //views: {
-    //"": {
-    //templateUrl: "tpls/blog.html"
-    //},
-    //"header@blogList": {
-    //templateUrl: "tpls/header.html"
-    //},
-    //"aside@blogList": {
-    //templateUrl: "tpls/aside.html",
-    //controller: "GetOwnerInfoCtrl"
-    //},
-    //"createBlog@blogList": {
-    //templateUrl: "tpls/createBlog.html"
-    //},
-    //"blogList@blogList": {
-    //templateUrl: "tpls/blogList.html"
-    //},
-    //"createComment@blogList": {
-    //templateUrl: "tpls/createComment.html"
-    //},
-    //"commentList@blogList": {
-    //templateUrl: "tpls/commentList.html"
-    //}
-    //}
-    //})
-    //.state("following", {
-    //url: "/following",
-    //views: {
-    //"": {
-    //templateUrl: "tpls/follow.html"
-    //},
-    //"header@following": {
-    //templateUrl: "tpls/header.html"
-    //},
-    //"aside@following": {
-    //templateUrl: "tpls/aside.html",
-    //controller: "GetOwnerInfoCtrl"
-    //},
-    //"followList@following": {
-    //templateUrl: "tpls/followList.html"
-    //}
-    //}
-    //})
-    //.state("updateInfo", {
-    //url: "/updateInfo",
-    //views: {
-    //"": {
-    //templateUrl: "tpls/updateInfo.html",
-    //controller: "GetOwnerInfoCtrl"
-    //},
-    //"header@updateInfo": {
-    //templateUrl: "tpls/header.html"
-    //}
-    //}
-    //})
-    //.state("user", {
-    //url: "/user/:userId",
-    //views: {
-    //"": {
-    //templateUrl: "tpls/user.html"
-    //},
-    //"header@user": {
-    //templateUrl: "tpls/header.html"
-    //},
-    //"aside@user": {
-    //templateUrl: "tpls/aside.html",
-    //controller: "GetUserInfoCtrl"
-    //},
-    //"blogList@user": {
-    //templateUrl: "tpls/blogList.html"
-    //},
-    //"createComment@user": {
-    //templateUrl: "tpls/createComment.html"
-    //},
-    //"commentList@user": {
-    //templateUrl: "tpls/commentList.html"
-    //}
-    //}
-    /*})*/
+    .state("updateInfo", {
+      url: "/updateInfo",
+      views: {
+        "": {
+          templateUrl: "tpls/userInfo.html",
+        }
+      }
+    })
+  /*    .state("blogList", {*/
+  //url: "/blogList",
+  //views: {
+  //"": {
+  //templateUrl: "tpls/blog.html"
+  //},
+  //"header@blogList": {
+  //templateUrl: "tpls/header.html"
+  //},
+  //"aside@blogList": {
+  //templateUrl: "tpls/aside.html",
+  //controller: "GetOwnerInfoCtrl"
+  //},
+  //"createBlog@blogList": {
+  //templateUrl: "tpls/createBlog.html"
+  //},
+  //"blogList@blogList": {
+  //templateUrl: "tpls/blogList.html"
+  //},
+  //"createComment@blogList": {
+  //templateUrl: "tpls/createComment.html"
+  //},
+  //"commentList@blogList": {
+  //templateUrl: "tpls/commentList.html"
+  //}
+  //}
+  //})
+  //.state("following", {
+  //url: "/following",
+  //views: {
+  //"": {
+  //templateUrl: "tpls/follow.html"
+  //},
+  //"header@following": {
+  //templateUrl: "tpls/header.html"
+  //},
+  //"aside@following": {
+  //templateUrl: "tpls/aside.html",
+  //controller: "GetOwnerInfoCtrl"
+  //},
+  //"followList@following": {
+  //templateUrl: "tpls/followList.html"
+  //}
+  //}
+  //})
+  //.state("updateInfo", {
+  //url: "/updateInfo",
+  //views: {
+  //"": {
+  //templateUrl: "tpls/updateInfo.html",
+  //controller: "GetOwnerInfoCtrl"
+  //},
+  //"header@updateInfo": {
+  //templateUrl: "tpls/header.html"
+  //}
+  //}
+  //})
+  //.state("user", {
+  //url: "/user/:userId",
+  //views: {
+  //"": {
+  //templateUrl: "tpls/user.html"
+  //},
+  //"header@user": {
+  //templateUrl: "tpls/header.html"
+  //},
+  //"aside@user": {
+  //templateUrl: "tpls/aside.html",
+  //controller: "GetUserInfoCtrl"
+  //},
+  //"blogList@user": {
+  //templateUrl: "tpls/blogList.html"
+  //},
+  //"createComment@user": {
+  //templateUrl: "tpls/createComment.html"
+  //},
+  //"commentList@user": {
+  //templateUrl: "tpls/commentList.html"
+  //}
+  //}
+  /*})*/
 });
 
 // myApp.directive("yearDrop", function () {
