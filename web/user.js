@@ -109,9 +109,11 @@ exports.signout = function(req, res, cb) {
   });
 };
 
+// 检查是否已登录
 exports.isSignedIn = function(req, res, cb) {
   var sessionId = cookie.getCookie(req, "sessionId");
 
+  // 没有cookie，未登录
   if (!sessionId) {
     cb(null, {
       isSignedIn: false
@@ -119,16 +121,7 @@ exports.isSignedIn = function(req, res, cb) {
     return;
   }
 
-  service.isSignedIn(sessionId, function(err, result) {
-    if (err) {
-      cb(err);
-      return;
-    }
-
-    cb(null, {
-      isSignedIn: result
-    });
-  });
+  service.isSignedIn(sessionId, cb);
 };
 
 exports.isExists = function(req, res, cb) {

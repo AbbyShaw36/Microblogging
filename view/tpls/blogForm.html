@@ -1,20 +1,21 @@
-<div id="createBlog">
+<div id="createBlog" ng-controller="createBlogCtrl">
   <h2 class="title">发布微博</h2>
   <form name="createBlogForm" role="form" class="pBox">
     <div class="row">
-      <textarea rows="4" ng-model="blog.content" name="blogContent" required ng-maxlength="140"></textarea>
+      <textarea rows="4" ng-model="blog.content" name="content" required ng-maxlength="140"></textarea>
     </div>
     <div class="row">
       <div class="point">
-        <div ng-hide="createBlogForm.blog.content.$dirty &&
-          createBlogForm.blog.content.$invalid">（内容为1-140个字数）</div>
-        <div class="error" ng-show="createBlogForm.blog.content.$dirty && createBlogForm.blog.content.$invalid">
-          <span ng-show="createBlogForm.blog.content.$error.maxlength">内容长度不得大于140个字符</span>
-          <span ng-show="createBlogForm.blog.content.$error.required">发布内容不能为空</span>
+        <div ng-hide="createBlogForm.content.$dirty &&
+          createBlogForm.content.$invalid">（内容为1-140个字数）</div>
+        <div class="error" ng-show="createBlogForm.content.$dirty &&
+          createBlogForm.content.$invalid">
+          <span ng-show="createBlogForm.content.$error.maxlength">内容长度不得大于140个字符</span>
+          <span ng-show="createBlogForm.content.$error.required">发布内容不能为空</span>
         </div>
       </div>
       <div class="btnBox">
-        <button type="button" class="btn btn1" id="createBlogBtn" ng-click="publishBlog()">发布</button>
+        <button type="button" class="btn btn1" id="createBlogBtn" ng-click="createBlog()">发布</button>
       </div>
     </div>
   </form>

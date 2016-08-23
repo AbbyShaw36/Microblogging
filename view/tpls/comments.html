@@ -1,4 +1,121 @@
-<div class="commentBox pBox" ng-controller="GetCommentsCtrl">
-	<div ui-view="createComment">加载中...</div>
-	<div ui-view="commentList" class="commentList"></div>
+<div class="commentBox pBox">
+  <!-- 发布评论 -->
+  <div class="createCommentBox clearfix" ng-controller="CreateCommentCtrl">
+    <span>发布评论：</span>
+    <form name="createCommentForm" role="form" class="pBox col-md-12">
+      <div class="row">
+        <textarea rows="4" ng-model="comment.content" name="content" required ng-maxlength="140"></textarea>
+      </div>
+      <div class="row">
+        <span class="point">
+          <span ng-hide="createCommentForm.content.$dirty && createCommentForm.content.$invalid">（内容为1-140个字数）</span>
+        <span class="error" ng-show="createCommentForm.content.$dirty && createCommentForm.content.$invalid">
+            <span ng-show="createCommentForm.content.$error.maxlength">内容长度不得大于140个字符</span>
+        <span ng-show="createCommentForm.content.$error.required">发布内容不能为空</span>
+        </span>
+        </span>
+        <span class="btnBox r">
+          <button type="button" class="btn btn1" ng-click="createComment()">发布</button>
+        </span>
+      </div>
+    </form>
+  </div>
+  <!-- 评论列表 -->
+  <div class="commentList">
+    <div ng-show="commentList.length === 0">该条微博还没有任何评论</div>
+    <ul ng-show="commentList.length > 0">
+      <li ng-repeat="(index,comment) in commentList" ng-mouseenter="comment.hover=true" ng-mouseleave="comment.hover=false">
+        <div class="clearfix">
+          <div class="col-md-1 text-center">
+            <div class="headPortrait">
+              <a href="{{'#user/' + comment.publisherId}}">
+                <img ng-src="{{comment.hp ? comment.hpPath + comment.hp : comment.hpPath + 'default.png'}}" alt="头像">
+              </a>
+            </div>
+          </div>
+          <div class="col-md-11">
+            <div class="clearfix top">
+              <a href="{{'#user/' + comment.publisherId}}" ng-bind="comment.publisher"></a>
+              <span>:</span>
+            </div>
+            <div class="content" ng-bind="comment.content"></div>
+            <div class="footer">
+              <span ng-bind="comment.publishTime | date: 'yyyy-MM-dd HH:mm:ss'"></span>
+              <a href="javascript:0;" class="r reply" ng-click="comment.reply = !comment.reply" ng-show="comment.reply || comment.hover">回复</a>
+            </div>
+          </div>
+        </div>
+        <!-- 回复 -->
+        <div ng-controller="getMessageCtrl">
+          <div ng-if="comment.reply">
+            <!-- 发布回复 -->
+            <form name="createMessageForm" role="form" class="pBox col-md-12
+              createMessageForm" ng-controller="createMessageCtrl">
+              <div class="row">
+                <textarea rows="4" ng-model="message.content" name="content" required ng-maxlength="140"></textarea>
+              </div>
+              <div class="row">
+                <span class="point">
+                  <span ng-hide="createMessageForm.content.$dirty && createMessageForm.content.$invalid">（内容为1-140个字数）</span>
+                <span class="error" ng-show="createMessageForm.content.$dirty && createMessageForm.content.$invalid">
+                    <span ng-show="createMessageForm.content.$error.maxlength">内容长度不得大于140个字符</span>
+                <span ng-show="createMessageForm.content.$error.required">发布内容不能为空</span>
+                </span>
+                </span>
+                <span class="btnBox r">
+                  <button type="button" class="btn btn1" ng-click="createComment()">回复</button>
+                </span>
+              </div>
+            </form>
+          </div>
+          <!-- 回复列表 -->
+          <div ng-show="comment.messages > 0">
+            <ul class="col-md-offset-1">
+              <li ng-repeat="(index,message) in comment.messageList" class="clearfix" ng-mouseenter="message.hover=true" ng-mouseleave="message.hover=false">
+                <div class="col-md-1 text-center">
+                  <div class="headPortrait">
+                    <a href="{{'#user/' + message.publisherId}}">
+                      <img ng-src="{{message.hp ? message.hpPath + message.hp : message.hpPath + 'default.png'}}" alt="头像">
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-11">
+                  <div class="clearfix top">
+                    <a href="{{'#user/' + message.publisherId}}" ng-bind="message.publisher"></a>
+                    回复
+                    <a href="{{'#user/' + message.receiverId}}" ng-bind="message.receiver"></a>
+                    :
+                  </div>
+                  <div class="content" ng-bind="message.content"></div>
+                  <div class="footer">
+                    <span ng-bind="message.publishTime | date: 'yyyy-MM-dd HH:mm:ss'"></span>
+                    <a href="javascript:0;" class="r reply" ng-click="message.reply = !message.reply" ng-show="message.reply || message.hover">回复</a>
+                  </div>
+                </div>
+                <div ng-if="message.reply" ng-controller="CreateMessageCtrl">
+                  <form name="createMessageForm" role="form" class="pBox col-md-12 createMessageForm">
+                    <div class="row">
+                      <textarea rows="4" ng-model="messageContent" name="content" required ng-maxlength="140"></textarea>
+                    </div>
+                    <div class="row">
+                      <span class="point">
+              <span ng-hide="createMessageForm.content.$dirty && createMessageForm.content.$invalid">（内容为1-140个字数）</span>
+                      <span class="error" ng-show="createMessageForm.content.$dirty && createMessageForm.content.$invalid">
+                <span ng-show="createMessageForm.content.$error.maxlength">内容长度不得大于140个字符</span>
+                      <span ng-show="createMessageForm.content.$error.required">发布内容不能为空</span>
+                      </span>
+                      </span>
+                      <span class="btnBox r">
+              <button type="button" class="btn btn1" ng-click="replyMessage()">回复</button>
+            </span>
+                    </div>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

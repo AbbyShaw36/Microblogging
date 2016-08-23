@@ -21,7 +21,9 @@
       </div>
     </div>
     <div ng-if="blog.showComment && blog.comments > 0">
-      <comment owner="blog.id" receiver="blog.publisherId" class="col-md-10 col-lg-offset-2">评论数据加载中...</comment>
+      <!--<comment owner="blog.id" receiver="blog.publisherId"
+        class="col-md-10 col-lg-offset-2">评论数据加载中...</comment>-->
+      <div ng-include="'tpls/comments.html'"></div>
     </div>
   </li>
 </ul>

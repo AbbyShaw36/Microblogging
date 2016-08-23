@@ -1,9 +1,12 @@
 <div id="main" class="container">
   <div class="flex">
     <aside id="aside" ng-include="'tpls/aside.html'"></aside>
-    <div id="content">
+    <div id="content" ng-controller="getBlogListCtrl">
       <div ng-include="'tpls/blogForm.html'"></div>
-      <div ng-include="'tpls/blogList.html'"></div>
+      <div>
+        <h2 class="title">最新关注</h2>
+        <div ng-include="'tpls/blogList.html'"></div>
+      </div>
     </div>
   </div>
 </div>

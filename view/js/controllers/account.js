@@ -68,7 +68,7 @@ myApp.controller("checkSignedInCtrl", ["$scope", "$cookies", "$location",
 
           if (data.isSignedIn) {
             //已登录
-            $scope.account = response.account;
+            $scope.account = data.account;
             $scope.isSignedIn = true;
 
             return;

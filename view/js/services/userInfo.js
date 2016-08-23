@@ -1,7 +1,9 @@
+// 用户信息
 myApp.factory("userInfoService", ["$http",
   function($http) {
     var factory = {};
 
+    // 获取用户信息
     factory.get = function(data, success_cb, err_cb) {
       $http.get("getUserInfo?" + data).then(
         function(response) {
@@ -22,6 +24,7 @@ myApp.factory("userInfoService", ["$http",
       );
     };
 
+    // 更新用户信息
     factory.update = function(data, success_cb, err_cb) {
       $http.put("updateInfo", data).then(
         function(response) {

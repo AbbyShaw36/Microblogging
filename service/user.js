@@ -82,8 +82,9 @@ service.signout = function(sessionId, cb) {
 
     cb(null);
   });
-}
+};
 
+// 检查是否已登录
 service.isSignedIn = function(sessionId, cb) {
   sessionDao.get(sessionId, function(err, result) {
     if (err) {
@@ -91,16 +92,47 @@ service.isSignedIn = function(sessionId, cb) {
       return;
     }
 
+    // sessionId不存在，未登录
     if (result.length === 0) {
-      logger.trace("user is not signed in");
-      cb(null, false);
+      logger.trace("SessionId not exists, user is not signed in");
+      cb(null, {
+        isSignedIn: false
+      });
       return;
     }
 
+    // sessionId存在
     logger.trace("user is signed in");
-    cb(null, true);
+
+    var id = result[0].userId;
+
+    var user = new User();
+    user.setId(id);
+
+    dao.getById(user, function(err, result) {
+      if (err) {
+        cb(err);
+        return;
+      }
+
+      // 用户不存在，未登录
+      if (result.length === 0) {
+        logger.trace("SessionId exists, user not exists");
+        cb(null, {
+          isSignedIn: false
+        });
+        return;
+      }
+
+      // 用户存在，已登录
+      logger.trace("User is signed in");
+      cb(null, {
+        isSignedIn: true,
+        account: result[0]
+      });
+    });
   });
-}
+};
 
 service.isExists = function(user, cb) {
   dao.getByName(user, function(err, result) {
